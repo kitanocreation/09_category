@@ -1,0 +1,323 @@
+/* --- reset --- */
+html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, blockquote, pre, a, abbr, acronym, address, big, cite, code, del, dfn, em, img, ins, kbd, q, s, samp, small, strike, strong, sub, sup, tt, var, b, u, i, center, dl, dt, dd, ol, ul, li, fieldset, form, label, legend, table, caption, tbody, tfoot, thead, tr, th, td, article, aside, canvas, details, embed, figure, figcaption, footer, header, hgroup, menu, nav, output, ruby, section, summary, time, mark, audio, video {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  font-size: 100%;
+  vertical-align: baseline;
+}
+
+article, aside, details, figcaption, figure, footer, header, hgroup, menu, nav, section {
+  display: block;
+}
+
+ol, ul {
+  list-style: none;
+}
+
+blockquote, q {
+  quotes: none;
+}
+
+blockquote:before, blockquote:after, q:before, q:after {
+  content: "";
+  content: none;
+}
+
+table {
+  border-collapse: collapse;
+  border-spacing: 0;
+}
+
+p, div {
+  word-break: break-all;
+}
+
+a {
+  text-decoration: none;
+}
+
+input[type=text], select {
+  border-radius: 3px;
+  border: none;
+  padding: 6px;
+  font-size: inheirt;
+  box-sizing: border-box;
+}
+
+input::placeholder {
+  color: #B5B5B5;
+  font-size: 12px;
+}
+
+pre {
+  white-space: pre-wrap;
+}
+
+.clearfix {
+  display: block;
+}
+
+.clearfix::before {
+  content: "";
+  display: block;
+  clear: both;
+}
+
+.clearfix::after {
+  content: "";
+  display: block;
+  clear: both;
+}
+
+.bx-wrapper {
+  box-shadow: none !important;
+}
+
+.bx-controls-direction a {
+  z-index: 0 !important;
+}
+
+* {
+  font-size: 14px;
+  font-weight: 400;
+}
+
+html, body {
+  width: 100vw;
+}
+
+.-fv, main, section {
+  width: 100%;
+}
+
+a {
+  width: 100%;
+  height: 100%;
+}
+
+img {
+  width: 100%;
+}
+
+html body .ks-fv {
+  width: calc(100vw - 32px);
+  padding-bottom: 46px;
+  margin: 16px 16px 16px 16px;
+}
+html body .ks-fv .ks-fv_img {
+  width: 100%;
+  margin-bottom: 56.5px;
+  position: relative;
+}
+html body .ks-fv .ks-fv_img .ks-fv_img-frame1, html body .ks-fv .ks-fv_img .ks-fv_img-frame2 {
+  width: 100%;
+  height: 32px;
+  position: absolute;
+  left: 0;
+}
+html body .ks-fv .ks-fv_img .ks-fv_img-frame1::before, html body .ks-fv .ks-fv_img .ks-fv_img-frame1::after, html body .ks-fv .ks-fv_img .ks-fv_img-frame2::before, html body .ks-fv .ks-fv_img .ks-fv_img-frame2::after {
+  content: "";
+  width: 32px;
+  height: 100%;
+  border-radius: 50%;
+  background-color: #FFFFFF;
+  position: absolute;
+}
+html body .ks-fv .ks-fv_img .ks-fv_img-frame1 {
+  top: 0;
+}
+html body .ks-fv .ks-fv_img .ks-fv_img-frame1::before, html body .ks-fv .ks-fv_img .ks-fv_img-frame1::after {
+  top: 0;
+}
+html body .ks-fv .ks-fv_img .ks-fv_img-frame1::before {
+  left: 0;
+  transform: translate(-50%, -50%);
+}
+html body .ks-fv .ks-fv_img .ks-fv_img-frame1::after {
+  right: 0;
+  transform: translate(50%, -50%);
+}
+html body .ks-fv .ks-fv_img .ks-fv_img-frame2 {
+  bottom: 6px;
+}
+html body .ks-fv .ks-fv_img .ks-fv_img-frame2::before, html body .ks-fv .ks-fv_img .ks-fv_img-frame2::after {
+  bottom: 0;
+}
+html body .ks-fv .ks-fv_img .ks-fv_img-frame2::before {
+  left: 0;
+  transform: translate(-50%, 50%);
+}
+html body .ks-fv .ks-fv_img .ks-fv_img-frame2::after {
+  right: 0;
+  transform: translate(50%, 50%);
+}
+html body .ks-fv .ks-fv_img img {
+  width: 100%;
+}
+html body .ks-fv .ks-fv_img .ks-logo {
+  width: 200px;
+  position: absolute;
+  bottom: 16px;
+  left: 50%;
+  transform: translate(-50%, 100%);
+}
+html body .ks-fv p {
+  padding-top: 35px;
+  font-family: "ten-mincho-text", serif;
+  font-size: 18px;
+  color: #414143;
+  line-height: 27px;
+  text-align: center;
+}
+html body .ks-fv p:nth-of-type(2) {
+  padding-top: 0;
+  margin-top: 8px;
+}
+html body .ks-about, html body .ks-pickUp {
+  width: 100%;
+}
+html body .ks-about h2, html body .ks-pickUp h2 {
+  width: calc(100% - 32px);
+  padding-top: 60px;
+  margin-left: 16px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-family: "ten-mincho-text", serif;
+  font-size: 64px;
+  color: #414143;
+  letter-spacing: 0.04em;
+  line-height: 76px;
+}
+html body .ks-about h2 span, html body .ks-pickUp h2 span {
+  display: block;
+  font-family: "ten-mincho-text", serif;
+  font-size: 20px;
+  color: #797979;
+  line-height: 21px;
+  writing-mode: vertical-rl;
+}
+html body .ks-about {
+  background-image: url(https://gigaplus.makeshop.jp/kitanoace/09_ks/1_bg.webp);
+  background-size: cover;
+  background-position: center;
+  padding-bottom: 60px;
+}
+html body .ks-about .ks-about-copy {
+  width: fit-content;
+  margin: 24px 0 0 16px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+html body .ks-about .ks-about-copy h3 {
+  font-family: "ten-mincho-text", serif;
+  font-size: 20px;
+  color: #797979;
+  line-height: 21px;
+  writing-mode: vertical-rl;
+}
+html body .ks-about .ks-about-copy p {
+  margin-left: 16px;
+  font-size: 16px;
+  color: #414143;
+  line-height: 200%;
+}
+html body .ks-about .ks-about-copy p span {
+  position: relative;
+  left: -8px;
+}
+html body .ks-about .ks-about-copy p span span {
+  left: -4px;
+}
+html body .ks-pickUp {
+  background-color: #F2F1EA;
+}
+html body .ks-pickUp article {
+  width: 100%;
+  margin-top: 13px;
+}
+html body .ks-pickUp article .ks-pickUp-item_img {
+  width: 100%;
+  height: 100vw;
+  position: relative;
+}
+html body .ks-pickUp article .ks-pickUp-item_img p {
+  width: fit-content;
+  background-color: #FFFFFF;
+  padding: 5.5px 8px;
+  font-family: "ten-mincho-text", serif;
+  font-size: 24px;
+  color: #6B651B;
+  position: absolute;
+  top: 24px;
+  left: 0;
+}
+html body .ks-pickUp article .ks-pickUp-item_img img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+html body .ks-pickUp article .ks-pickUp-item-detail {
+  width: calc(100% - 32px);
+  border: solid 1px #D8D7CB;
+  background-color: #FFFFFF;
+  padding-bottom: 27px;
+  margin: 0 auto;
+  position: relative;
+  transform: translateY(-16px);
+}
+html body .ks-pickUp article .ks-pickUp-item-detail h3 {
+  width: calc(100% - 32px);
+  border-bottom: solid 0.5px #D8D7CB;
+  padding-bottom: 4px;
+  margin: 16px 0 0 16px;
+  font-size: 18px;
+  line-height: 29.7px;
+  color: #414143;
+}
+html body .ks-pickUp article .ks-pickUp-item-detail p {
+  width: calc(100% - 32px);
+  margin: 4px auto 0 auto;
+  color: #414143;
+  line-height: 23.1px;
+}
+html body .ks-pickUp article .ks-pickUp-item-detail .ks-pickUp-item-price {
+  margin-top: 4px;
+  display: flex;
+  justify-content: end;
+  font-size: 16px;
+  color: #414143;
+  line-height: 33px;
+}
+html body .ks-pickUp article .ks-pickUp-item-detail .ks-pickUp-item-price span {
+  font-size: 20px;
+  font-weight: bold;
+}
+html body .ks-pickUp article .ks-pickUp-item-detail .ks-pickUp-item-cta {
+  width: calc(100% - 32px);
+  height: 47px;
+  background-image: url(https://gigaplus.makeshop.jp/kitanoace/09_ks/1_bg.webp);
+  background-size: cover;
+  background-position: center;
+  margin: 20px auto 0 auto;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+}
+html body .ks-pickUp article .ks-pickUp-item-detail .ks-pickUp-item-cta a {
+  width: calc(100% - 8px);
+  height: calc(100% - 8px);
+  border: solid 0.5px #6B651B;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 16px;
+  color: #6B651B;
+  line-height: 26.4px;
+}
+html body .ks-pickUp article:nth-of-type(1) {
+  margin-top: 40px;
+}
