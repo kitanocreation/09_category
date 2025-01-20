@@ -160,7 +160,19 @@ html body .ks-fv .ks-fv_img .ks-logo {
   position: absolute;
   bottom: 16px;
   left: 50%;
-  transform: translate(-50%, 100%);
+  transform: translate(-49.5%, 100%);
+  z-index: 1;
+}
+html body .ks-fv .ks-fv_img .ks-fv_img-circle {
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  background-color: #FFFFFF;
+  position: absolute;
+  bottom: -12px;
+  left: 50%;
+  transform: translate(-50%, 50%);
+  z-index: 0;
 }
 html body .ks-fv p {
   padding-top: 35px;
@@ -176,6 +188,13 @@ html body .ks-fv p:nth-of-type(2) {
 }
 html body .ks-about, html body .ks-pickUp {
   width: 100%;
+  position: relative;
+}
+html body .ks-about .ks-about-bgImg, html body .ks-about .ks-pickUp-bgImg, html body .ks-pickUp .ks-about-bgImg, html body .ks-pickUp .ks-pickUp-bgImg {
+  width: 68%;
+  position: absolute;
+  right: 0;
+  z-index: 0;
 }
 html body .ks-about h2, html body .ks-pickUp h2 {
   width: calc(100% - 32px);
@@ -197,12 +216,16 @@ html body .ks-about h2 span, html body .ks-pickUp h2 span {
   color: #797979;
   line-height: 21px;
   writing-mode: vertical-rl;
+  z-index: 1;
 }
 html body .ks-about {
   background-image: url(https://gigaplus.makeshop.jp/kitanoace/09_ks/1_bg.webp);
   background-size: cover;
   background-position: center;
   padding-bottom: 60px;
+}
+html body .ks-about .ks-about-bgImg {
+  top: 0;
 }
 html body .ks-about .ks-about-copy {
   width: fit-content;
@@ -233,6 +256,10 @@ html body .ks-about .ks-about-copy p span span {
 }
 html body .ks-pickUp {
   background-color: #F2F1EA;
+  padding-bottom: 36px;
+}
+html body .ks-pickUp .ks-pickUp-bgImg {
+  top: 32px;
 }
 html body .ks-pickUp article {
   width: 100%;
@@ -261,18 +288,22 @@ html body .ks-pickUp article .ks-pickUp-item_img img {
 }
 html body .ks-pickUp article .ks-pickUp-item-detail {
   width: calc(100% - 32px);
-  border: solid 1px #D8D7CB;
-  background-color: #FFFFFF;
   padding-bottom: 27px;
   margin: 0 auto;
   position: relative;
   transform: translateY(-16px);
 }
+html body .ks-pickUp article .ks-pickUp-item-detail .ks-detail-frame {
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: -1;
+}
 html body .ks-pickUp article .ks-pickUp-item-detail h3 {
   width: calc(100% - 32px);
   border-bottom: solid 0.5px #D8D7CB;
-  padding-bottom: 4px;
-  margin: 16px 0 0 16px;
+  padding: 16px 0 4px 0;
+  margin-left: 16px;
   font-size: 18px;
   line-height: 29.7px;
   color: #414143;
@@ -320,4 +351,80 @@ html body .ks-pickUp article .ks-pickUp-item-detail .ks-pickUp-item-cta a {
 }
 html body .ks-pickUp article:nth-of-type(1) {
   margin-top: 40px;
+}
+html body .ks-ranking, html body .ks-recommend {
+  width: calc(100% - 16px);
+  padding-bottom: 100px;
+  margin: 24px 0 0 16px;
+  background-color: #F2F1EA;
+}
+html body .ks-ranking h2, html body .ks-recommend h2 {
+  padding: 60px 0 0 16px;
+  font-family: "ten-mincho-text", serif;
+  font-size: 40px;
+  color: #414143;
+  letter-spacing: 0.04em;
+  line-height: 40px;
+}
+html body .ks-ranking h2 span, html body .ks-recommend h2 span {
+  margin-left: 12px;
+  font-size: 16px;
+  color: #797979;
+}
+html body .ks-ranking .ks-slideX, html body .ks-ranking .ks-slideX, html body .ks-recommend .ks-slideX, html body .ks-recommend .ks-slideX {
+  margin: 40px 0 0 16px;
+  display: flex;
+  overflow-x: scroll;
+  white-space: nowrap;
+}
+html body .ks-ranking .ks-slideX ul, html body .ks-ranking .ks-slideX ul, html body .ks-recommend .ks-slideX ul, html body .ks-recommend .ks-slideX ul {
+  width: fit-content;
+  padding-right: 16px;
+  display: flex;
+}
+html body .ks-ranking .ks-slideX ul li, html body .ks-ranking .ks-slideX ul li, html body .ks-recommend .ks-slideX ul li, html body .ks-recommend .ks-slideX ul li {
+  width: 120px;
+  margin-left: 16px;
+}
+html body .ks-ranking .ks-slideX ul li a, html body .ks-ranking .ks-slideX ul li a, html body .ks-recommend .ks-slideX ul li a, html body .ks-recommend .ks-slideX ul li a {
+  color: #333333;
+}
+html body .ks-ranking .ks-slideX ul li a .ks-ranking-icon, html body .ks-ranking .ks-slideX ul li a .ks-ranking-icon, html body .ks-recommend .ks-slideX ul li a .ks-ranking-icon, html body .ks-recommend .ks-slideX ul li a .ks-ranking-icon {
+  width: 100%;
+  height: 26px;
+  display: flex;
+  justify-content: center;
+  align-items: end;
+  position: relative;
+}
+html body .ks-ranking .ks-slideX ul li a .ks-ranking-icon p, html body .ks-ranking .ks-slideX ul li a .ks-ranking-icon p, html body .ks-recommend .ks-slideX ul li a .ks-ranking-icon p, html body .ks-recommend .ks-slideX ul li a .ks-ranking-icon p {
+  font-size: 12px;
+  font-weight: bold;
+  color: #FFFFFF;
+  line-height: 19.8px;
+  transform: translateY(2px);
+  z-index: 1;
+}
+html body .ks-ranking .ks-slideX ul li a .ks-ranking-icon img, html body .ks-ranking .ks-slideX ul li a .ks-ranking-icon img, html body .ks-recommend .ks-slideX ul li a .ks-ranking-icon img, html body .ks-recommend .ks-slideX ul li a .ks-ranking-icon img {
+  width: 32px;
+  position: absolute;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 0;
+}
+html body .ks-ranking .ks-slideX ul li a .ks-slideX-item_img, html body .ks-ranking .ks-slideX ul li a .ks-slideX-item_img, html body .ks-recommend .ks-slideX ul li a .ks-slideX-item_img, html body .ks-recommend .ks-slideX ul li a .ks-slideX-item_img {
+  width: 100%;
+  height: 120px;
+  background-color: #D9D9D9;
+  margin-top: 8px;
+}
+html body .ks-ranking .ks-slideX ul li a h3, html body .ks-ranking .ks-slideX ul li a p, html body .ks-ranking .ks-slideX ul li a h3, html body .ks-ranking .ks-slideX ul li a p, html body .ks-recommend .ks-slideX ul li a h3, html body .ks-recommend .ks-slideX ul li a p, html body .ks-recommend .ks-slideX ul li a h3, html body .ks-recommend .ks-slideX ul li a p {
+  margin-top: 8px;
+  font-size: 14px;
+  line-height: 23.1px;
+  white-space: wrap;
+}
+html body .ks-ranking .ks-slideX ul li:nth-of-type(1), html body .ks-ranking .ks-slideX ul li:nth-of-type(1), html body .ks-recommend .ks-slideX ul li:nth-of-type(1), html body .ks-recommend .ks-slideX ul li:nth-of-type(1) {
+  margin-left: 0;
 }
