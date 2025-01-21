@@ -1,0 +1,593 @@
+@import './base';
+
+.ks-pc {
+    display: none;
+}
+
+h2 {
+    font-weight: 400;
+}
+
+html {
+
+    body {
+        
+        .ks-fv {
+            width: calc(100vw - 32px);
+            padding-bottom: 46px;
+            margin: 16px 16px 16px 16px;
+
+            .ks-fv_img {
+                width: 100%;
+                margin-bottom: 56.5px;
+                position: relative;
+
+                .ks-fv_img-frame1, .ks-fv_img-frame2 {
+                    width: 100%;
+                    height: 32px;
+                    position: absolute;
+                    left: 0;
+
+                    &::before, &::after {
+                        content: '';
+                        width: 32px;
+                        height: 100%;
+                        border-radius: 50%;
+                        background-color: $white;
+                        position: absolute;
+                    }
+                }
+
+                .ks-fv_img-frame1 {
+                    top: 0;
+
+                    &::before, &::after {
+                        top: 0;
+                    }
+
+                    &::before {
+                        left: 0;
+                        transform: translate(-50%, -50%);
+                    }
+
+                    &::after {
+                        right: 0;
+                        transform: translate(50%, -50%);
+                    }
+                }
+
+                .ks-fv_img-frame2 {
+                    bottom: 6px;
+
+                    &::before, &::after {
+                        bottom: 0;
+                    }
+
+                    &::before {
+                        left: 0;
+                        transform: translate(-50%, 50%);
+                    }
+
+                    &::after {
+                        right: 0;
+                        transform: translate(50%, 50%);
+                    }
+                }
+
+                img {
+                    width: 100%;
+                }
+
+                .ks-logo {
+                    width: 200px;
+                    position: absolute;
+                    bottom: 16px;
+                    left: 50%;
+                    transform: translate(-49.5%, 100%);
+                    z-index: 1;
+                }
+
+                .ks-fv_img-circle {
+                    width: 80px;
+                    height: 80px;
+                    border-radius: 50%;
+                    background-color: $white;
+                    position: absolute;
+                    bottom: -12px;
+                    left: 50%;
+                    transform: translate(-50%, 50%);
+                    z-index: 0;
+                }
+            }
+
+            p {
+                padding-top: 35px;
+                font-family: $tenMinchoText;
+                font-size: 18px;
+                color: $black1;
+                line-height: 27px;
+                text-align: center;
+            }
+
+            p:nth-of-type(2) {
+                padding-top: 0;
+                margin-top: 8px;
+            }
+        }
+
+        .ks_main {
+
+            .ks-about, .ks-pickUp {
+                width: 100%;
+                position: relative;
+    
+                .ks-about-bgImg, .ks-pickUp-bgImg {
+                    width: 68%;
+                    position: absolute;
+                    right: 0;
+                    z-index: 0;
+                }
+                
+                h2 {
+                    width: calc(100% - 32px);
+                    padding-top: 60px;
+                    margin-left: 16px;
+                    display: flex;
+                    justify-content: space-between;
+                    align-items: center;
+                    font-family: $tenMinchoText;
+                    font-size: 64px;
+                    color: $black1;
+                    letter-spacing: .04em;
+                    line-height: 76px;
+    
+                    span {
+                        display: block;
+                        font-family: $tenMinchoText;
+                        font-size: 20px;
+                        color: $black2;
+                        line-height: 21px;
+                        writing-mode: vertical-rl;
+                        z-index: 1;
+                    }
+                }
+            }
+    
+            .ks-about {
+                background-image: url(https://gigaplus.makeshop.jp/kitanoace/09_ks/1_bg.webp);
+                @include bg;
+                padding-bottom: 60px;
+    
+                .ks-about-bgImg {
+                    top: 0;
+                }
+    
+                .ks-about-copy {
+                    width: fit-content;
+                    margin: 24px 0 0 16px;
+                    @include center;
+    
+                    h3 {
+                        font-family: $tenMinchoText;
+                        font-size: 20px;
+                        color: $black2;
+                        line-height: 21px;
+                        writing-mode: vertical-rl;
+                    }
+    
+                    p {
+                        margin-left: 16px;
+                        font-size: 16px;
+                        color: $black1;
+                        line-height: 200%;
+    
+                        span {
+                            position: relative;
+                            left: -8px;
+    
+                            span {
+                                left: -4px;
+                            }
+                        }
+                    }
+                }
+            }
+    
+            .ks-pickUp {
+                background-color: $beige;
+                padding-bottom: calc(52px - 16px);
+    
+                .ks-pickUp-bgImg {
+                    top: 32px;
+                }
+    
+                article {
+                    width: 100%;
+                    margin-top: calc(29px - 16px);
+    
+                    .ks-pickUp-item_img {
+                        width: 100%;
+                        height: 100vw;
+                        position: relative;
+        
+                        p {
+                            width: fit-content;
+                            background-color: $white;
+                            padding: 5.5px 8px;
+                            font-family: $tenMinchoText;
+                            font-size: 24px;
+                            color: $green;
+                            position: absolute;
+                            top: 24px;
+                            left: 0;
+                        }
+        
+                        img {
+                            width: 100%;
+                            height: 100%;
+                            object-fit: cover;
+                        }
+                    }    
+    
+                    .ks-pickUp-item-detail {
+                        width: calc(100% - 32px);
+                        padding-bottom: 27px;
+                        margin: 0 auto;
+                        position: relative;
+                        transform: translateY(-16px);
+    
+                        .ks-detail-frame {
+                            @include absolute;
+                            z-index: -1;
+                        }
+    
+                        h3 {
+                            width: calc(100% - 32px);
+                            border-bottom: solid .5px $grey;
+                            padding: 16px 0 4px 0;
+                            margin-left: 16px;
+                            font-size: 18px;
+                            line-height: 29.7px;
+                            color: $black1;
+                        }
+    
+                        p {
+                            width: calc(100% - 32px);
+                            margin: 4px auto 0 auto;
+                            color: $black1;
+                            line-height: 23.1px;
+                        }
+    
+                        .ks-pickUp-item-price {
+                            margin-top: 4px;
+                            display: flex;
+                            justify-content: end;
+                            font-size: 16px;
+                            color: $black1;
+                            line-height: 33px;
+    
+                            span {
+                                font-size: 20px;
+                                font-weight: bold;
+                            }
+                        }
+    
+                        .ks-pickUp-item-cta {
+                            width: calc(100% - 32px);
+                            height: 47px;
+                            background-image: url(https://gigaplus.makeshop.jp/kitanoace/09_ks/1_bg.webp);
+                            @include bg;
+                            margin: 20px auto 0 auto;
+                            @include center;
+                            position: relative;
+    
+                            a {
+                                width: calc(100% - 8px);
+                                height: calc(100% - 8px);
+                                border: solid .5px $green;
+                                @include center;
+                                font-size: 16px;
+                                color: $green;
+                                line-height: 26.4px;
+                            }
+                        }
+                    }
+                }
+    
+                article:nth-of-type(1) {
+                    margin-top: 40px;
+                }
+            }
+    
+            .ks-ranking, .ks-recommend {
+                width: calc(100% - 16px);
+                padding-bottom: 100px;
+                margin: 24px 0 0 16px;
+                background-color: $beige;
+    
+                h2 {
+                    padding: 60px 0 0 16px;
+                    font-family: $tenMinchoText;
+                    font-size: 40px;
+                    color: $black1;
+                    letter-spacing: .04em;
+                    line-height: 40px;
+    
+                    span {
+                        margin-left: 12px;
+                        font-size: 16px;
+                        color: $black2;
+                    }
+                }
+    
+                .ks-slideX, .ks-slideX {
+                    margin: 40px 0 0 16px;
+                    display: flex;
+                    overflow-x: scroll;
+                    white-space: nowrap;
+    
+                    ul {
+                        width: fit-content;
+                        padding-right: 16px;
+                        display: flex;
+        
+                        li {
+                            width: 120px;
+                            margin-left: 16px;
+    
+                            a {
+                                color: #333333;
+    
+                                .ks-ranking-icon {
+                                    width: 100%;
+                                    height: 26px;
+                                    display: flex;
+                                    justify-content: center;
+                                    align-items: end;
+                                    position: relative;
+            
+                                    p {
+                                        font-size: 12px;
+                                        font-weight: bold;
+                                        color: $white;    
+                                        line-height: 19.8px;
+                                        transform: translateY(2px);
+                                        z-index: 1;
+                                    }
+            
+                                    img {
+                                        width: 32px;
+                                        position: absolute;
+                                        top: 0;
+                                        left: 50%;
+                                        transform: translateX(-50%);
+                                        z-index: 0;
+                                    }
+                                }
+            
+                                .ks-slideX-item_img {
+                                    width: 100%;
+                                    height: 120px;
+                                    background-color: #D9D9D9;
+                                    margin-top: 8px;
+                                }
+            
+                                h3, p {
+                                    margin-top: 8px;
+                                    font-size: 14px;
+                                    line-height: 23.1px;
+                                    white-space: wrap;
+                                }    
+                            }
+                        }
+    
+                        li:nth-of-type(1) {
+                            margin-left: 0;
+                        }
+                    }    
+                }
+            }
+    
+            .ks-items {
+                margin-top: 84px;
+    
+                .category-title {
+    
+                    h2 {
+                        padding-left: 16px;
+                        font-size: 24px;
+                        color: $black1;
+                        letter-spacing: .04em;
+                        line-height: 39.6px;
+                    }
+    
+                    .list-head-sort {
+                        margin-top: 40px;
+                        margin-bottom: 0;
+                        margin-left: 16px;
+    
+                        dt {
+                            font-size: 11px;
+                            line-height: 18.15px;
+                        }
+    
+                        dd {
+    
+                            a {
+                                font-size: 11px;
+                                line-height: 18.15px;
+                            }
+                        }
+                    }
+                }
+    
+                .item-list {
+                    width: calc(100% - 32px);
+                    margin: 40px auto 0 auto;
+    
+                    li {
+                        margin-top: 24px;
+                        margin-bottom: 0;
+                    }
+    
+                    li:nth-of-type(1), li:nth-of-type(2) {
+                        margin-top: 0;
+                    }
+                }
+    
+                .pager-wrap {
+                    width: calc(100% - 32px);
+                    margin-left: 16px;
+                }
+            }    
+        }
+
+        footer {
+            margin-top: 60px;
+        }
+    }
+}
+
+@media screen and (min-width: 768px) {
+
+    .ks-sp {
+        display: none;
+    }
+
+    .ks-pc {
+        display: block;
+    }
+    
+    html {
+
+        body {
+
+            .ks-fv {
+                width: calc(100vw - 160px);
+                padding-bottom: 60px;
+                margin: 20px 80px 0 80px;
+
+                .ks-fv_img {
+
+                    .ks-fv_img-frame1, .ks-fv_img-frame2 {
+                        height: 40px;
+
+                        &::before, &::after {
+                            width: 40px;
+                        }
+                    }
+                }
+            }
+
+            .ks_main {
+
+                .ks-about {
+                    width: 100%;
+                    padding-bottom: 100px;
+                    display: flex;
+                    justify-content: center;
+                    align-items: center;
+                    flex-direction: column;
+
+                    .ks-about-bgImg {
+                        width: 400px;
+                    }
+
+                    .ks-about-flex {
+
+                        h2 {
+                            padding-top: 100px;
+                            margin-left: 0;
+                        }
+    
+                        .ks-about-copy {
+                            margin: 24px 0 0 0;
+    
+                            p {
+                                margin-left: 80px;
+                                font-size: 18px;
+                            }
+                        }    
+                    }
+                }
+
+                .ks-pickUp {
+
+                    h2 {
+                        width: calc(100% - 160px);
+                        margin-left: 80px;
+                    }
+
+                    article {
+                        width: calc(100% - 160px);
+                        margin: 0 auto;
+                        @include center;
+
+                        .ks-pickUp-item_img {
+                            width: 500px;
+                            height: 500px;
+
+                            p {
+                                padding: 0 8px;
+                                font-size: 32px;
+                                line-height: 52.8px;
+                                @include absolute;
+                                transform: translate(-106px, 24px);
+                            }
+                        }
+
+                        .ks-pickUp-item-detail {
+                            width: 440px;
+                            padding-bottom: 0;
+                            margin: 0;
+                            transform: translateX(-25px);
+
+                            .ks-detail-frame {
+                                width: 100%;
+                                height: 100%;
+                            }
+
+                            h3 {
+                                padding: 24px 0 8px 0;
+                                margin-left: 24px;
+                                font-size: 20px;
+                                line-height: 33px;
+                            }
+
+                            p {
+                                width: calc(100% - 48px);
+                                margin: 8px auto 0 auto;
+                                font-size: 16px;
+                                line-height: 26.4px;
+                            }
+
+                            .ks-pickUp-item-price {
+                                padding-right: 24px;
+                                margin-top: 8px;
+                                font-size: 18px;
+                                align-items: baseline;
+
+                                span {
+                                    margin-right: 6px;
+                                    font-size: 24px;
+                                    line-height: 39.4px;
+                                }
+                            }
+
+                            .ks-pickUp-item-cta {
+                                width: calc(100% - 48px);
+                                height: 53px;
+                                margin: 24px auto 0 auto;
+
+                                a {
+                                    font-size: 20px;
+                                    line-height: 33px;
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
