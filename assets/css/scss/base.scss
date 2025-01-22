@@ -41,6 +41,10 @@ img {
     width: 100%;
 }
 
+h2 {
+    font-weight: 400;
+}
+
 @mixin bg {
     background-size: cover;
     background-position: center;

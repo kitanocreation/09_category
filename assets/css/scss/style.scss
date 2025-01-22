@@ -4,10 +4,6 @@
     display: none;
 }
 
-h2 {
-    font-weight: 400;
-}
-
 .slideIn-up {
     transform: translateY(15px);
     opacity: 0;
@@ -50,7 +46,7 @@ h2 {
     opacity: 0;
 }
 .slideIn-left-about-on {
-    animation: slideIn-left-about 1s forwards;
+    animation: slideIn-left-about 1s .25s forwards;
 }
 @keyframes slideIn-left-about {
                 
@@ -79,6 +75,68 @@ h2 {
 
     to {
         opacity: 1;    
+    }
+}
+
+.ks-pickUp-item_img-obi-bg-sp-on {
+    animation: ks-pickUp-item_img-obi-bg-sp 1s forwards;   
+}
+@keyframes ks-pickUp-item_img-obi-bg-sp {
+                                
+    0% {
+        width: calc(100% - 8px);
+        transform: translateX(-100%);
+    }
+
+    75% {
+        width: calc(100% - 8px);  
+    }
+
+    100% {
+        width: 100%;
+        transform: translateX(0);
+    }
+}
+
+.ks-pickUp-item_img-obi-bg-pc-on {
+    animation: ks-pickUp-item_img-obi-bg-pc 1s forwards;   
+}
+@keyframes ks-pickUp-item_img-obi-bg-pc {
+                                
+    0% {
+        width: 0;
+    }
+
+    100% {
+        width: 100%;
+    }
+}
+
+.ks-pickUp-item_img-obi_p-on {
+    animation: ks-pickUp-item_img-obi_p 1s forwards;   
+}
+@keyframes ks-pickUp-item_img-obi_p {
+    
+    from {
+        transform: translateX(-100%);
+    }
+
+    to {
+        transform: translateX(0);
+    }
+}
+
+.ks-pickUp-item_img-obi_span-on {
+    animation: ks-pickUp-item_img-obi_span 1s forwards;   
+}
+@keyframes ks-pickUp-item_img-obi_span {
+    
+    from {
+        transform: translateX(100%);
+    }
+
+    to {
+        transform: translateX(0);
     }
 }
 
@@ -122,6 +180,43 @@ h2 {
     }
 }
 
+.fadeIn-ranking {
+    opacity: 0;
+}
+.fadeIn-ranking-on {
+    animation: fadeIn 2s forwards;
+}
+@keyframes fadeIn-ranking {
+                
+    from {
+        opacity: 0;
+    }
+
+    to {
+        opacity: 1;    
+    }
+}
+
+.slideIn-left-ranking {
+    transform: translateX(16px);
+    opacity: 0;
+}
+.slideIn-left-ranking-on {
+    animation: slideIn-left 2s .25s forwards;
+}
+@keyframes slideIn-left-ranking {
+                
+    from {
+        transform: translateX(30px);
+        opacity: 0;
+    }
+
+    to {
+        transform: translateX(0);
+        opacity: 1;    
+    }
+}
+
 html {
 
     body {
@@ -134,14 +229,51 @@ html {
 
             .ks-fv_img {
                 width: 100%;
+                height: 400px;
                 margin-bottom: 56.5px;
                 position: relative;
+
+                /*
+                    .ks-slick .ks-slick1 .slick-active img {
+                        transform: scale(1.1);
+                    }
+                    
+                    .ks-slick .ks-slick2 .slick-active img {
+                        transform: translateY(-40px);  
+                    }
+                    
+                    .ks-slick .ks-slick3 .slick-active img {
+                        transform: translateX(40px);
+                    }     
+                */           
+
+                .slick-slider {
+                    height: 100%;
+
+                    .slick-list {
+                        height: 100%;
+
+                        .slick-track {
+                            height: 100%;
+
+                            .slick-slide {
+                                height: 100%;
+
+                                img {
+                                    height: 100%;
+                                    object-fit: cover;
+                                }
+                            }
+                        }
+                    }
+                }
 
                 .ks-fv_img-frame1, .ks-fv_img-frame2 {
                     width: 100%;
                     height: 32px;
                     position: absolute;
                     left: 0;
+                    z-index: 2;
 
                     &::before, &::after {
                         content: '';
@@ -172,7 +304,7 @@ html {
                 }
 
                 .ks-fv_img-frame2 {
-                    bottom: 6px;
+                    bottom: 0;
 
                     &::before, &::after {
                         bottom: 0;
@@ -191,6 +323,7 @@ html {
 
                 img {
                     width: 100%;
+                    object-fit: cover;
                 }
 
                 .ks-logo {
@@ -325,17 +458,44 @@ html {
                         width: 100%;
                         height: 100vw;
                         position: relative;
-        
-                        p {
+
+                        .ks-pickUp-item_img-obi {
                             width: fit-content;
-                            background-color: $white;
-                            padding: 5.5px 8px;
-                            font-family: $tenMinchoText;
-                            font-size: 24px;
-                            color: $green;
+                            height: 35px;
+                            padding: 0 8px;
+                            @include center;
                             position: absolute;
                             top: 24px;
-                            left: 0;          
+                            left: 0;  
+
+                            .ks-pickUp-item_img-obi-bg-sp {
+                                width: calc(100% - 8px);
+                                height: 100%;
+                                @include absolute;
+                                overflow: hidden;
+
+                                div {
+                                    width: 100%;
+                                    height: 100%;  
+                                    background-color: $white;  
+                                    transform: translateX(100%); 
+                                }
+                            }
+
+                            p {
+                                background-color: $white;
+                                position: relative;
+                                transform: translateX(-100%);
+                                overflow: hidden;     
+    
+                                span {
+                                    display: block;
+                                    font-family: $tenMinchoText;
+                                    font-size: 24px;
+                                    color: $green;   
+                                    transform: translateX(100%); 
+                                }
+                            }
                         }
         
                         img {
@@ -473,8 +633,20 @@ html {
                                 @include center;
                                 font-family: "yu-gothic-pr6n", sans-serif;
                                 font-size: 16px;
+                                font-weight: bold;
                                 color: $green;
                                 line-height: 26.4px;
+                                position: relative;
+
+                                &::after {
+                                    content: '';
+                                    width: calc(100% + 8px);
+                                    height: calc(100% + 8px);
+                                    background-color: $white-a2;
+                                    @include absolute;
+                                    transform: translate(-4px, -4px);
+                                    opacity: 0;
+                                }
                             }
                         }
                     }
@@ -755,6 +927,7 @@ html {
                 }
 
                 .ks-pickUp {
+                    padding-bottom: 100px;
 
                     h2 {
                         width: calc(100% - 160px);
@@ -775,12 +948,44 @@ html {
                             width: 500px;
                             height: 500px;
 
-                            p {
-                                padding: 0 8px;
-                                font-size: 32px;
-                                line-height: 52.8px;
-                                @include absolute;
-                                transform: translate(-106px, 24px);
+                            .ks-pickUp-item_img-obi {
+                                height: 47px;
+    
+                                .ks-pickUp-item_img-obi-bg-sp {
+    
+                                    div { 
+                                        background-color: transparent;
+                                        transform: translateX(100%); 
+                                    }
+                                }
+
+                                .ks-pickUp-item_img-obi-bg-pc {
+                                    width: 0;
+                                    height: 100%;
+                                    position: absolute;
+                                    top: 0;
+                                    left: -106px;
+                                    overflow: hidden;
+    
+                                    div {
+                                        width: 100%;
+                                        height: 100%;  
+                                        background-color: $white;  
+                                    }
+                                }    
+    
+                                p {
+                                    background-color: transparent;
+                                    left: -106px;
+                                    transform: translateX(-100%);
+                                    overflow: hidden;     
+        
+                                    span {
+                                        background-color: $white;
+                                        font-size: 32px;
+                                        transform: translateX(100%); 
+                                    }
+                                }
                             }
                         }
 
@@ -832,6 +1037,23 @@ html {
                                 margin: 24px auto 0 auto;
 
                                 a {
+
+                                    &::after {
+                                        transition-duration: .25s;
+                                    }
+                                }
+
+                                &:hover {
+
+                                    a {
+
+                                        &::after {
+                                            opacity: 1;
+                                        }
+                                    }
+                                }
+
+                                a {
                                     font-size: 20px;
                                     line-height: 33px;
                                 }
@@ -847,17 +1069,25 @@ html {
                         flex-direction: row-reverse;
 
                         .ks-pickUp-item_img {
-                            transform: translateX(-25px);
-    
-                            p {
-                                left: initial;
-                                right: 0;
-                                transform: translate(106px, 24px);
-                            }
-                        }
 
-                        .ks-pickUp-item-detail {
-                            transform: translateX(0);
+                            .ks-pickUp-item_img-obi {
+                                left: initial;
+                                right: -106px;
+
+                                .ks-pickUp-item_img-obi-bg-pc {
+                                    left: initial;
+                                    right: 0;
+                                }
+
+                                .ks-pickUp-item_img-obi-bg-pc-on {
+                                    display: none;
+                                }
+
+                                p {
+                                    left: initial;
+                                    right: 0;
+                                }
+                            }    
                         }
                     }
                 }
