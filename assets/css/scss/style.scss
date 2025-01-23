@@ -461,9 +461,16 @@ html {
             }
     
             .ks-about {
-                background-image: url(https://gigaplus.makeshop.jp/kitanoace/09_ks/1_bg.webp);
-                @include bg;
                 padding-bottom: 60px;
+                position: relative;
+
+                .ks-about-bg {
+                    width: 100%;
+                    height: 100%;
+                    object-fit: cover;
+                    @include absolute;
+                    z-index: 0;
+                }
     
                 .ks-about-bgImg {
                     top: 0;
@@ -1315,7 +1322,7 @@ html {
                         }
 
                         .ks-slide-ul-on2 {
-                            margin-left: 155px;
+                            margin-left: 160px;
                             transform: translateX(-100vw);
                         }
                     }
