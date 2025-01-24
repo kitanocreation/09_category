@@ -4,28 +4,22 @@ $(function() {
 
     /* slick */
     $(".ks-slick").slick({
-        autoplay: true, // 自動再生ON
-        fade: true, // フェードON
-        dots: false, // ドットOFF
-        arrows: false, // 矢印OFF
-        speed: 3000, // スライド、フェードアニメーションの速度2000ミリ秒
-        autoplaySpeed: 3000, // 自動再生速度4000ミリ秒
-        pauseOnFocus: false, // フォーカスで一時停止OFF
-        pauseOnHover: false // マウスホバーで一時停止OFF
+        autoplay: true,
+        fade: true,
+        dots: false,
+        arrows: false,
+        speed: 3000,
+        autoplaySpeed: 3000,
+        pauseOnFocus: false,
+        pauseOnHover: false
     });
 
     /* フェードインアニメーション(ウィンドウの高さにより) */
-    // ウィンドウの高さを取得
     var windowHeight = $(window).height();
-    // target要素の位置を取得
     var targetOffset = $('.slideIn-up-fv_p').offset().top;
-    // デバイスごとに異なる条件でアニメーションを実行
     if(targetOffset <= windowHeight) {
-        // ウィンドウの高さまで表示されている場合
-        $('.slideIn-up-fv_p').addClass('slideIn-up-fv_p-on'); // 要素をフェードイン表示
+        $('.slideIn-up-fv_p').addClass('slideIn-up-fv_p-on');
     } else {
-        // ウィンドウの高さまで表示されていない場合
-        // ここには何もせず、必要に応じて他の処理を追加
         $(window).on('scroll', function(){
             $('.slideIn-up-fv_p').each(function() {
                 let targetOffset = $(this).offset().top;

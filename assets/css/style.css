@@ -851,6 +851,9 @@ html body .ks_main .ks-ranking .ks-slideX-sp ul li a .ks-ranking-icon, html body
   align-items: end;
   position: relative;
 }
+html body .ks_main .ks-ranking .ks-slideX-sp ul li a .ks-ranking-icon h3, html body .ks_main .ks-recommend .ks-slideX-sp ul li a .ks-ranking-icon h3 {
+  white-space: break-spaces;
+}
 html body .ks_main .ks-ranking .ks-slideX-sp ul li a .ks-ranking-icon p, html body .ks_main .ks-recommend .ks-slideX-sp ul li a .ks-ranking-icon p {
   font-family: "yu-gothic-pr6n", sans-serif;
   font-size: 12px;

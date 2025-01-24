@@ -826,6 +826,10 @@ html {
                                     justify-content: center;
                                     align-items: end;
                                     position: relative;
+
+                                    h3 {
+                                        white-space: break-spaces;
+                                    }
             
                                     p {
                                         font-family: "yu-gothic-pr6n", sans-serif;
