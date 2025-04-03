@@ -1,686 +1,35 @@
-<!-- キタノセレクション(ct127), 大感謝祭(ct172), 特集(ct173以外の場合表示する。-->
-<{if $category.code != 'ct127' && $category.code != 'ct172' && $category.code != 'ct173'}>
-    <{$module.meta}>
-    <!-- GTM : Clarity -->
-    <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src='https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);})(window,document,'script','dataLayer','GTM-MNFWKW8K');</script>
-    <body>
-        
-    	<!-- GTM : Clarity -->
-    	<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-MNFWKW8K"height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript> 
-
-        <{$module.header}>
-        <div class="contents">
-            <div class="breadcrumb">
-                <span class="breadcrumb-item"><a href="<{$url.top}>">ホーム</a></span>
-                <{section name=i loop=$category.breadcrumb_list.list}>
-                    <span class="breadcrumb-item <{if $category.breadcrumb_list.list[i].is_current}>current<{/if}>">
-                        <a href="<{$category.breadcrumb_list.list[i].url}>"><{$category.breadcrumb_list.list[i].name}></a>
-                    </span>
-                <{/section}>
-            </div>
-            <div class="container">
-                <{$module.side}>
-                <main class="main">
-                    <section class="main-section">
-                        <!--カテゴリーおすすめ商品-->
-                        <{if $category.recommend_item.has_item}>
-                            <h2><{$category.name}>のおすすめ商品</h2>
-                            <ul class="item-list">
-                            <{section name=i loop=$category.recommend_item.list max=4}>
-                                <li>
-                                    <div class="item-icon">
-                                        <{if $category.recommend_item.list[i].is_soldout}>
-                                        <p class="item-soldout">SOLD OUT</p>
-                                        <{/if}>
-                                    </div>
-                                    
-                                    <div class="item-list-image">
-                                        <a href="<{$category.recommend_item.list[i].url}>"><img src="<{$category.recommend_item.list[i].image_L}>" alt=""></a>
-                                    </div>
-                                    <{if $category.recommend_item.list[i].base_category.url}>
-                                        <p class="item-category"><a href="<{$category.recommend_item.list[i].base_category.url}>"><{$category.recommend_item.list[i].base_category.name}></a></p>
-                                    <{/if}>
-                                    <p class="item-name"><a href="<{$category.recommend_item.list[i].url}>"><{$category.recommend_item.list[i].name}></a></p>
-                                    <{if $category.recommend_item.list[i].is_sale}>
-                                        <p class="price original-price">￥<{$category.recommend_item.list[i].original_price|number_format}><span>（税込）</span></p>
-                                        <p class="price item-sale-price">￥<{$category.recommend_item.list[i].price|number_format}><span class="tax">（税込）</span>
-                                        <span class="sale-discount-rate">[<{$category.recommend_item.list[i].sale_rate}>%OFF</span>]</p>
-                                    <{else}>
-                                        <p class="price">￥<{$category.recommend_item.list[i].price|number_format}><span>（税込）</span></p>
-                                    <{/if}>
-                                    <{if $category.recommend_item.list[i].has_review}>
-                                    <div class="item-list-review">
-                                        <{$category.recommend_item.list[i].review.star_html}>
-                                        <p class="item-list-review-rate"><{$category.recommend_item.list[i].review.average}></p>
-                                        <p class="item-list-review-count">[<{$category.recommend_item.list[i].review.total_count}>件]</p>
-                                    </div>
-                                    <{/if}>
-                                    <div class="item-list-cart">
-                                        <{if $category.recommend_item.list[i].is_soldout}>
-                                            <div class="item-list-sold item-list-btn">売り切れ</div>
-                                        <{else}>
-                                            <a href="<{$category.recommend_item.list[i].cart_entry_url}>" class="item-list-btn add-list-cart cart-order-btn">カートに入れる</a>
-                                        <{/if}>
-                                    </div>
-                                </li>
-                            <{/section}>
-                            </ul>
-                        <{/if}>
-                        <!--カテゴリー名-->
-                        <div class="category-title">
-                            <h2><{$category.name}></h2>
-                            <dl class="list-head-sort">
-                                <dt>並べ替え：</dt>
-                                <dd><a href="<{$category.sort_low_price_url}>">価格の低い順</a></dd>
-                                <dd><a href="<{$category.sort_high_price_url}>">価格の高い順</a></dd>
-                                <dd><a href="<{$category.sort_recommend_url}>">おすすめ順</a></dd>
-                                <dd><a href="<{$category.sort_new_url}>">新着順</a></dd>
-                            </dl>
-                        </div>
-                        <!--子カテゴリー名-->
-                        <{if $category.child_category.has_item}>
-                            <ul class="category-child-item">
-                            <{section name=i loop=$category.child_category.list}>
-                                <li>
-                                    <a href="<{$category.child_category.list[i].url}>"><{$category.child_category.list[i].name}><span class="child-category-count">（<{$category.child_category.list[i].item_count}>）</span></a>
-                                </li>
-                            <{/section}>
-                            </ul>
-                        <{/if}>
-                        <!--カテゴリーアイテム-->
-                        <{if $category.item.has_item}>
-                        <ul class="item-list">
-                        <{section name=i loop=$category.item.list}>
-                            <li>
-                                <div class="item-icon">
-                                    <{if $category.item.list[i].is_soldout}>
-                                        <p class="item-soldout">SOLD OUT</p>
-                                    <{/if}>
-                                </div>
-                                <div class="item-list-image">
-                                    <a href="<{$category.item.list[i].url}>"><img src="<{$category.item.list[i].image_L}>" alt=""></a>
-                                </div>
-                                <{if $category.item.list[i].base_category.url}>
-                                    <p class="item-category"><a href="<{$category.item.list[i].base_category.url}>"><{$category.item.list[i].base_category.name}></a></p>
-                                <{/if}>
-                                <p class="item-name"><a href="<{$category.item.list[i].url}>"><{$category.item.list[i].name}></a></p>
-                                <{if $category.item.list[i].is_sale}>
-                                    <p class="price original-price">￥<{$category.item.list[i].original_price|number_format}><span>（税込）</span></p>
-                                    <p class="price item-sale-price">￥<{$category.item.list[i].price|number_format}><span class="tax">（税込）</span>
-                                    <span class="sale-discount-rate">[<{$category.item.list[i].sale_rate}>%OFF</span>]</p>
-                                <{else}>
-                                    <p class="price">￥<{$category.item.list[i].price|number_format}><span>（税込）</span></p>
-                                <{/if}>
-                                <{if $category.item.list[i].has_review}>
-                                <div class="item-list-review">
-                                    <{$category.item.list[i].review.star_html}>
-                                    <p class="item-list-review-rate"><{$category.item.list[i].review.average}></p>
-                                    <p class="item-list-review-count">[<{$category.item.list[i].review.total_count}>件]</p>
-                                </div>
-                                <{/if}>
-                            </li>
-                        <{/section}>
-                        </ul>
-                        <!--ページャー-->
-                        <div class="pager-wrap">
-                            <p class="total-count">（全<span><{$category.total_count}></span>件）<{$category.display_count}>件表示</p>
-                            <{if $category.pager.has_item}>
-                            <ul class="pager">
-                                <{if !$category.pager.is_first_display}>
-                                    <li><a href="<{$category.pager.first_url}>"><span class="prev">一番前へ</span></a></li>
-                                <{/if}>
-                                <{section name=i loop=$category.pager.list}>
-                                <{if $category.pager.list[i].is_current_page}>
-                                    <li><span class="current"><{$category.pager.list[i].number}></span></li>
-                                <{else}>
-                                    <li><a href="<{$category.pager.list[i].url}>"><span><{$category.pager.list[i].number}></span></a></li>
-                                <{/if}>
-                                <{/section}>
-                                <{if !$category.pager.is_last_display}>
-                                    <li><a href="<{$category.pager.last_url}>"><span class="next">最後へ</span></a></li>
-                                <{/if}>
-                            </ul>
-                            <{/if}>
-                        </div>
-                        <{else}>
-                            <p class="empty">このカテゴリーには商品がありません</p>
-                        <{/if}>
-                    </section>
-                </main>
-            </div>
-        </div>
-        <{$module.footer}>
-
-    <{$makeshop.body_bottom}>
-<{/if}>
-
-<!-- 大感謝祭(ct172)の場合表示する。-->
-<{if $category.code == 'ct172'}>
+<{if $category.code == 'ct127' || $category.code == 'kitanoselection'}>
+    <!-- キタノセレクション -->
     <{$module.meta_up}>
-    <meta name="description" content=""> <!-- ページの説明文 -->
-    <!-- OGP -->
-    <meta name="description" content="<{$page.description}>">
-    <meta property="og:type" content="website">
-    <meta property="og:url" content="<{$page.canonical_url}>">
-    <meta property="og:title" content="<{$page.title}>">
-    <meta property="og:description" content="<{$page.description}>">
-    <meta property="og:site_name" content="<{$shop.name}>">
-    <meta name="twitter:card" content="summary_large_image">
-    <title><{$page.title}></title>
-    <link rel="canonical" href="<{$page.canonical_url}>">
-    <link rel="shortcut icon" type="image/ico" href="<{$shop.favicon_url}>">
-    <link href="https://use.fontawesome.com/releases/v5.6.1/css/all.css" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@100;300;400;500;700;900&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="<{$page.css}>">
-    <link rel="stylesheet" href="https://gigaplus.makeshop.jp/kitanoace/04_gr8TG/css/style43.css">
-    <style>
-        body {
-            overflow-x: hidden;
-        }
-		@media screen and (min-width: 768px) {
-            body .category_container {
-                width: 1000px;
-                margin: 250px auto 0 auto;
-            }
-        }
-    </style>
+        <meta name="description" content="<{$page.description}>">
+        <meta property="og:type" content="website">
+        <meta property="og:url" content="<{$page.canonical_url}>">
+        <meta property="og:title" content="<{$page.title}>">
+        <meta property="og:description" content="<{$page.description}>">
+        <meta property="og:site_name" content="<{$shop.name}>">
+        <title><{$page.title}></title>
+        <link rel="canonical" href="<{$page.canonical_url}>">
+        <link rel="shortcut icon" type="image/ico" href="<{$shop.favicon_url}>">
+        <link href="https://use.fontawesome.com/releases/v5.6.1/css/all.css" rel="stylesheet">
+        <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@100;300;400;500;700;900&display=swap" rel="stylesheet">
+        <link rel="stylesheet" type="text/css" href="//cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.css"/>
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/simplebar@5.3.6/dist/simplebar.min.css"/>
+        <link rel="stylesheet" href="<{$page.css}>">
+        <link rel="stylesheet" href="https://gigaplus.makeshop.jp/kitanoace/09_ks/assets/css/style31.css">
+        <style>.header{z-index:4;}.header .postage p,#g-nav, .footer a,.footer p{font-size:13px;letter-spacing:0;}.nav-contact li{font-size:14px;}.nav-contact li,.gnav li a,.bnav li a, .bnav li p,.footer-nav li a,.footer-text span,.copyright{letter-spacing:0;}.footer-nav li{line-height:1.4;}.footer-nav li a{font-size:14px;}.sp-side-section,.search{width:77.5%;}.clearfix{position:relative;z-index:0;}@media screen and (min-width:768px){.curryBs-fv{padding-top:146.5px;}.curryBs_main a:hover{opacity:1;}header .bottom-nav{height:55px;}.bottom-nav{font-size:14px;letter-spacing:0;}}.ks-slideX-sp h3{white-space:break-spaces;}</style>
     <{$module.meta_center2}>
-    <script src="" defer></script>
+        <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/simplebar@5.3.6/dist/simplebar.min.js" defer></script>        
+        <script defer>
+            /* Ten Mincho : Adobe Fonts */
+            (function(d) { var config = {kitId: 'wku2cgo', scriptTimeout: 3000, async: true}, h=d.documentElement,t=setTimeout(function(){h.className=h.className.replace(/\bwf-loading\b/g,"")+" wf-inactive";},config.scriptTimeout),tk=d.createElement("script"),f=false,s=d.getElementsByTagName("script")[0],a;h.className+=" wf-loading";tk.src='https://use.typekit.net/'+config.kitId+'.js';tk.async=true;tk.onload=tk.onreadystatechange=function(){a=this.readyState;if(f||a&&a!="complete"&&a!="loaded")return;f=true;clearTimeout(t);try{Typekit.load(config)}catch(e){}};s.parentNode.insertBefore(tk,s)})(document);       
+            /* Yu Gothic Pr6N : Adobe Fonts */
+            (function(d) { var config = { kitId: 'zqp2ktf',scriptTimeout: 3000,async: true}, h=d.documentElement,t=setTimeout(function(){h.className=h.className.replace(/\bwf-loading\b/g,"")+" wf-inactive";},config.scriptTimeout),tk=d.createElement("script"),f=false,s=d.getElementsByTagName("script")[0],a;h.className+=" wf-loading";tk.src='https://use.typekit.net/'+config.kitId+'.js';tk.async=true;tk.onload=tk.onreadystatechange=function(){a=this.readyState;if(f||a&&a!="complete"&&a!="loaded")return;f=true;clearTimeout(t);try{Typekit.load(config)}catch(e){}};s.parentNode.insertBefore(tk,s)})(document);
+        </script>
+        <script type="text/javascript" src="//cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js" defer></script>
+        <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/simplebar@5.3.6/dist/simplebar.min.js" defer></script>            
+        <script src="https://gigaplus.makeshop.jp/kitanoace/09_ks/assets/js/script7.js" defer></script>    
     <{$module.meta_down}>
-
-    <body>
-
-        <div class="gr8TG_end">
-            <p class="gr8TG_sp">
-                半期に1度の<br>
-                大感謝祭は<br>
-                <span>終了しました。</span>
-            </p>
-            <p class="gr8TG_pc">半期に1度の大感謝祭は終了しました。</p>
-            <div class="gr8TG_top_button">
-                <a href="https://www.kitano-ace.jp/">TOPへもどる</a>
-            </div>
-        </div>
-        <{$module.header}>
-        <div class="category_container">
-            <div class="breadcrumb">
-                <span class="breadcrumb-item"><a href="<{$url.top}>">ホーム</a></span>
-                <{section name=i loop=$category.breadcrumb_list.list}>
-                    <span class="breadcrumb-item <{if $category.breadcrumb_list.list[i].is_current}>current<{/if}>">
-                        <a href="<{$category.breadcrumb_list.list[i].url}>"><{$category.breadcrumb_list.list[i].name}></a>
-                    </span>
-                <{/section}>
-            </div>
-            <{$module.side}>
-            <div class="gr8TG_fv">
-                <img src="https://gigaplus.makeshop.jp/kitanoace/04_gr8TG/img/0_sp_re3.svg" alt="" class="gr8TG_sp">
-                <img src="https://gigaplus.makeshop.jp/kitanoace/04_gr8TG/img/0_pc_re3.svg" alt="" class="gr8TG_pc">
-            </div>
-            <div class="gr8TG_container">
-                <section class="gr8TG_hB">
-                    <h2><img src="https://gigaplus.makeshop.jp/kitanoace/04_gr8TG/img/1_title_re.svg" alt=""></h2>
-                    <div class="gr8TG_flex">
-                        <div class="gr8TG_hB_con1">
-                            <img src="https://gigaplus.makeshop.jp/kitanoace/04_gr8TG/img/1_bg1.svg" alt="" class="gr8TG_hB_bgImg1">
-                            <img src="https://gigaplus.makeshop.jp/kitanoace/04_gr8TG/img/1_img1_re.webp" alt="" class="gr8TG_hB_bgitem1">
-                            <div class="gr8TG_hB_con2">
-                                <img src="https://gigaplus.makeshop.jp/kitanoace/04_gr8TG/img/1_bg2.svg" alt="" class="gr8TG_hB_bgImg2">
-                                <img src="https://gigaplus.makeshop.jp/kitanoace/04_gr8TG/img/1_img2_re.webp" alt="" class="gr8TG_hB_bgitem2">
-                            </div>
-                        </div>
-                        <div>
-                            <div class="gr8TG_text">
-                                <img src="https://gigaplus.makeshop.jp/kitanoace/04_gr8TG/img/1_text_re1.svg" alt="">
-                            </div>
-                            <div class="gr8TG_cta"><a href="https://www.kitano-ace.jp/view/item/000000001497" class="gr8TG_a">この商品を詳しく見る</a></div>    
-                        </div>    
-                    </div>
-                </section>
-                <section class="gr8TG_gr8Price">
-                    <h2><img src="https://gigaplus.makeshop.jp/kitanoace/04_gr8TG/img/2_title_re.svg" alt=""></h2>
-                    <article>
-                        <div class="gr8TG_itemImg">
-                            <img src="https://gigaplus.makeshop.jp/kitanoace/04_gr8TG/img/2_bg1.svg" alt="" class="gr8TG_itemImg_bgImg">
-                            <div class="gr8TG_itemImg_con">
-                                <img src="https://gigaplus.makeshop.jp/kitanoace/04_gr8TG/img/2_img1.webp" alt="">
-                            </div>
-                        </div>
-                        <div>
-                            <div class="gr8TG_itemText">
-                                <img src="https://gigaplus.makeshop.jp/kitanoace/04_gr8TG/img/2_text1.svg" alt="">
-                            </div>
-                            <div class="gr8TG_cta"><a href="https://www.kitano-ace.jp/view/item/000000001468" class="gr8TG_a">この商品を詳しく見る</a></div>
-                        </div>
-                    </article>
-                    <article>
-                        <div class="gr8TG_itemImg">
-                            <img src="https://gigaplus.makeshop.jp/kitanoace/04_gr8TG/img/2_bg2.svg" alt="" class="gr8TG_itemImg_bgImg">
-                            <div class="gr8TG_itemImg_con">
-                                <img src="https://gigaplus.makeshop.jp/kitanoace/04_gr8TG/img/2_img2.webp" alt="">
-                            </div>
-                        </div>
-                        <div>
-                            <div class="gr8TG_itemText">
-                                <img src="https://gigaplus.makeshop.jp/kitanoace/04_gr8TG/img/2_text2.svg" alt="">
-                            </div>
-                            <div class="gr8TG_cta"><a href="https://www.kitano-ace.jp/view/item/000000001494" class="gr8TG_a">この商品を詳しく見る</a></div>
-                        </div>
-                    </article>
-                    <article>
-                        <div class="gr8TG_itemImg">
-                            <img src="https://gigaplus.makeshop.jp/kitanoace/04_gr8TG/img/2_bg1.svg" alt="" class="gr8TG_itemImg_bgImg">
-                            <div class="gr8TG_itemImg_con">
-                                <img src="https://gigaplus.makeshop.jp/kitanoace/04_gr8TG/img/2_img3.webp" alt="">
-                            </div>
-                        </div>
-                        <div>
-                            <div class="gr8TG_itemText">
-                                <img src="https://gigaplus.makeshop.jp/kitanoace/04_gr8TG/img/2_text3.svg" alt="">
-                            </div>
-                            <div class="gr8TG_cta"><a href="https://www.kitano-ace.jp/view/item/000000001496" class="gr8TG_a">この商品を詳しく見る</a></div>
-                        </div>
-                    </article>
-                    <article>
-                        <div class="gr8TG_itemImg">
-                            <img src="https://gigaplus.makeshop.jp/kitanoace/04_gr8TG/img/2_bg2.svg" alt="" class="gr8TG_itemImg_bgImg">
-                            <div class="gr8TG_itemImg_con">
-                                <img src="https://gigaplus.makeshop.jp/kitanoace/04_gr8TG/img/2_img4.webp" alt="">
-                            </div>
-                        </div>
-                        <div>
-                            <div class="gr8TG_itemText">
-                                <img src="https://gigaplus.makeshop.jp/kitanoace/04_gr8TG/img/2_text4.svg" alt="">
-                            </div>
-                            <div class="gr8TG_cta"><a href="https://www.kitano-ace.jp/view/item/000000001489" class="gr8TG_a">この商品を詳しく見る</a></div>
-                        </div>
-                    </article>
-                </section>
-            </div>
-            <div class="contents">
-                <div class="container">
-                    <main class="main">
-                        <section class="main-section">
-                            <!--カテゴリーおすすめ商品-->
-                            <{if $category.recommend_item.has_item}>
-                                <h2><{$category.name}>のおすすめ商品</h2>
-                                <ul class="item-list">
-                                <{section name=i loop=$category.recommend_item.list max=4}>
-                                    <li>
-                                        <div class="item-icon">
-                                            <{if $category.recommend_item.list[i].is_soldout}>
-                                            <p class="item-soldout">SOLD OUT</p>
-                                            <{/if}>
-                                        </div>
-                                        <div class="item-list-image">
-                                            <a href="<{$category.recommend_item.list[i].url}>"><img src="<{$category.recommend_item.list[i].image_L}>" alt=""></a>
-                                        </div>
-                                        <{if $category.recommend_item.list[i].base_category.url}>
-                                            <p class="item-category"><a href="<{$category.recommend_item.list[i].base_category.url}>"><{$category.recommend_item.list[i].base_category.name}></a></p>
-                                        <{/if}>
-                                        <p class="item-name"><a href="<{$category.recommend_item.list[i].url}>"><{$category.recommend_item.list[i].name}></a></p>
-                                        <{if $category.recommend_item.list[i].is_sale}>
-                                            <p class="price original-price">￥<{$category.recommend_item.list[i].original_price|number_format}><span>（税込）</span></p>
-                                            <p class="price item-sale-price">￥<{$category.recommend_item.list[i].price|number_format}><span class="tax">（税込）</span>
-                                            <span class="sale-discount-rate">[<{$category.recommend_item.list[i].sale_rate}>%OFF</span>]</p>
-                                        <{else}>
-                                            <p class="price">￥<{$category.recommend_item.list[i].price|number_format}><span>（税込）</span></p>
-                                        <{/if}>
-                                        <{if $category.recommend_item.list[i].has_review}>
-                                        <div class="item-list-review">
-                                            <{$category.recommend_item.list[i].review.star_html}>
-                                            <p class="item-list-review-rate"><{$category.recommend_item.list[i].review.average}></p>
-                                            <p class="item-list-review-count">[<{$category.recommend_item.list[i].review.total_count}>件]</p>
-                                        </div>
-                                        <{/if}>
-                                        <div class="item-list-cart">
-                                            <{if $category.recommend_item.list[i].is_soldout}>
-                                                <div class="item-list-sold item-list-btn">売り切れ</div>
-                                            <{else}>
-                                                <a href="<{$category.recommend_item.list[i].cart_entry_url}>" class="item-list-btn add-list-cart cart-order-btn">カートに入れる</a>
-                                            <{/if}>
-                                        </div>
-                                    </li>
-                                <{/section}>
-                                </ul>
-                            <{/if}>
-                            <!--カテゴリー名-->
-                            <div class="category-title">
-                                <h2><{$category.name}></h2>
-                                <dl class="list-head-sort">
-                                    <dt>並べ替え：</dt>
-                                    <dd><a href="<{$category.sort_low_price_url}>">価格の低い順</a></dd>
-                                    <dd><a href="<{$category.sort_high_price_url}>">価格の高い順</a></dd>
-                                    <dd><a href="<{$category.sort_recommend_url}>">おすすめ順</a></dd>
-                                    <dd><a href="<{$category.sort_new_url}>">新着順</a></dd>
-                                </dl>
-                            </div>
-                            <!--子カテゴリー名-->
-                            <{if $category.child_category.has_item}>
-                                <ul class="category-child-item">
-                                <{section name=i loop=$category.child_category.list}>
-                                    <li>
-                                        <a href="<{$category.child_category.list[i].url}>"><{$category.child_category.list[i].name}><span class="child-category-count">（<{$category.child_category.list[i].item_count}>）</span></a>
-                                    </li>
-                                <{/section}>
-                                </ul>
-                            <{/if}>
-                            <!--カテゴリーアイテム-->
-                            <{if $category.item.has_item}>
-                            <ul class="item-list">
-                            <{section name=i loop=$category.item.list}>
-                                <li>
-                                    <div class="item-icon">
-                                        <{if $category.item.list[i].is_soldout}>
-                                            <p class="item-soldout">SOLD OUT</p>
-                                        <{/if}>
-                                    </div>
-    
-                                    <div class="item-list-image">
-                                        <a href="<{$category.item.list[i].url}>"><img src="<{$category.item.list[i].image_L}>" alt=""></a>
-                                    </div>
-                                    <{if $category.item.list[i].base_category.url}>
-                                        <p class="item-category"><a href="<{$category.item.list[i].base_category.url}>"><{$category.item.list[i].base_category.name}></a></p>
-                                    <{/if}>
-                                    <p class="item-name"><a href="<{$category.item.list[i].url}>"><{$category.item.list[i].name}></a></p>
-                                    <{if $category.item.list[i].is_sale}>
-                                        <p class="price original-price">￥<{$category.item.list[i].original_price|number_format}><span>（税込）</span></p>
-                                        <p class="price item-sale-price">￥<{$category.item.list[i].price|number_format}><span class="tax">（税込）</span>
-                                        <span class="sale-discount-rate">[<{$category.item.list[i].sale_rate}>%OFF</span>]</p>
-                                    <{else}>
-                                        <p class="price">￥<{$category.item.list[i].price|number_format}><span>（税込）</span></p>
-                                    <{/if}>
-                                    <{if $category.item.list[i].has_review}>
-                                    <div class="item-list-review">
-                                        <{$category.item.list[i].review.star_html}>
-                                        <p class="item-list-review-rate"><{$category.item.list[i].review.average}></p>
-                                        <p class="item-list-review-count">[<{$category.item.list[i].review.total_count}>件]</p>
-                                    </div>
-                                    <{/if}>
-                                </li>
-                            <{/section}>
-                            </ul>
-                            <!--ページャー-->
-                            <div class="pager-wrap">
-                                <p class="total-count">（全<span><{$category.total_count}></span>件）<{$category.display_count}>件表示</p>
-                                <{if $category.pager.has_item}>
-                                <ul class="pager">
-                                    <{if !$category.pager.is_first_display}>
-                                        <li><a href="<{$category.pager.first_url}>"><span class="prev">一番前へ</span></a></li>
-                                    <{/if}>
-            
-                                    <{section name=i loop=$category.pager.list}>
-                                    <{if $category.pager.list[i].is_current_page}>
-                                        <li><span class="current"><{$category.pager.list[i].number}></span></li>
-                                    <{else}>
-                                        <li><a href="<{$category.pager.list[i].url}>"><span><{$category.pager.list[i].number}></span></a></li>
-                                    <{/if}>
-                                    <{/section}>
-            
-                                    <{if !$category.pager.is_last_display}>
-                                        <li><a href="<{$category.pager.last_url}>"><span class="next">最後へ</span></a></li>
-                                    <{/if}>
-                                </ul>
-                                <{/if}>
-                            </div>
-                            <{else}>
-                                <p class="empty">このカテゴリーには商品がありません</p>
-                            <{/if}>
-                        </section>
-                    </main>
-                </div>
-            </div>    
-        </div>
-        <{$module.footer}>
-
-    <{$makeshop.body_bottom}>
-<{/if}>
-
-<!-- 特集(ct173)の場合表示する。-->
-<{if $category.code == 'ct173'}>
-    <{$module.meta_up}>
-    <meta name="description" content=""> <!-- ページの説明文 -->
-    <!-- OGP -->
-    <meta name="description" content="<{$page.description}>">
-    <meta property="og:type" content="website">
-    <meta property="og:url" content="<{$page.canonical_url}>">
-    <meta property="og:title" content="<{$page.title}>">
-    <meta property="og:description" content="<{$page.description}>">
-    <meta property="og:site_name" content="<{$shop.name}>">
-    <meta name="twitter:card" content="summary_large_image">
-    <title><{$page.title}></title>
-    <link rel="canonical" href="<{$page.canonical_url}>">
-    <link rel="shortcut icon" type="image/ico" href="<{$shop.favicon_url}>">
-    <link href="https://use.fontawesome.com/releases/v5.6.1/css/all.css" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@100;300;400;500;700;900&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="<{$page.css}>">
-    <style>
-        body .contents {
-            margin-top: 0;
-        }
-        .lp-list-contents {
-            display: flex;
-            flex-wrap: wrap;
-            justify-content: center;
-        }
-        .lp-list-contents li {
-            width: calc(50% - 18px);
-            margin: 25px 6px 0 6px;
-        }
-        .lp-list-contents li:nth-of-type(1), .lp-list-contents li:nth-of-type(2) {
-            margin: 0 6px 0 6px;
-        }
-        .lp-list-contents li a {
-            display: block;
-            width: 100%;
-            height: 100%;
-        }
-        .lp-list-contents li a img {
-            width: 100%;
-            height: auto;
-        }
-        .lp-list-contents li a p {
-            font-weight: bold;
-        }
-        @media screen and (min-width: 768px) {
-            .lp-list-contents {
-                justify-content: initial;
-            }
-            .lp-list-contents li {
-                width: calc(33.3% - 15px);
-                margin: 40px 0 0 15px;
-            }
-            .lp-list-contents li:nth-of-type(1) {
-                margin: 0 0 0 0;
-            }
-            .lp-list-contents li:nth-of-type(2), .lp-list-contents li:nth-of-type(3) {
-                margin: 0 0 0 15px;
-            }
-            .lp-list-contents li:nth-of-type(4), .lp-list-contents li:nth-of-type(7), .lp-list-contents li:nth-of-type(10) {
-                margin: 40px 0 0 0;
-            }
-        }
-    </style>
-    <{$module.meta_center2}>
-    <script src="" defer></script>
-    <{$module.meta_down}>
-    <body>
-
-        <{$module.header}>
-        <div class="contents">
-            <div class="breadcrumb">
-                <span class="breadcrumb-item"><a href="<{$url.top}>">ホーム</a></span>
-                <span class="breadcrumb-item">
-                    <a href="<{$category.breadcrumb_list.list[i].url}>"><{$category.breadcrumb_list.list[i].name}></a>
-                </span>
-            </div>
-            <div class="container">
-                <{$module.side}>
-                <main class="main">
-                    <div class="lp-list-category">
-                        <div class="category-title">
-                            <h2><{$category.name}></h2>
-                        </div>
-                    </div>
-                    <ul class="lp-list-contents">
-                        <li>
-                            <a href="https://www.kitano-ace.jp/view/page/fukubukuro">
-                                <img src="https://gigaplus.makeshop.jp/kitanoace/07_lp-list/img/fukubukuro.webp" alt="">
-                                <p>福袋2025 予約受付中！</p>
-                            </a>
-                        </li>
-                        <li>
-                            <a href="https://www.kitano-ace.jp/view/page/currybook">
-                                <img src="https://gigaplus.makeshop.jp/kitanoace/07_lp-list/img/curry-bookshelf.webp" alt="">
-                                <p>カレーなる本棚&reg;リニューアル</p>
-                            </a>
-                        </li>
-                        <li>
-                            <a href="https://www.kitano-ace.jp/view/page/onoeukon-kyettharhinspicy">
-                                <img src="https://gigaplus.makeshop.jp/kitanoace/07_lp-list/img/ukon-original.webp" alt="">
-                                <p>【数量限定】麻辣チェッターヒン</p>
-                            </a>
-                        </li>
-                        <li>
-                            <a href="https://www.kitano-ace.jp/view/page/onoeukon">
-                                <img src="https://gigaplus.makeshop.jp/kitanoace/07_lp-list/img/ukon-osusume.webp" alt="">
-                                <p>尾上右近さんおすすめカレー11選</p>
-                            </a>
-                        </li>
-                        <li>
-                            <a href="https://www.kitano-ace.jp/view/page/fukubukuro">
-                                <img src="https://gigaplus.makeshop.jp/kitanoace/07_lp-list/img/fukubukuro.webp" alt="">
-                                <p>福袋2025 予約受付中！</p>
-                            </a>
-                        </li>
-                        <li>
-                            <a href="https://www.kitano-ace.jp/view/page/currybook">
-                                <img src="https://gigaplus.makeshop.jp/kitanoace/07_lp-list/img/curry-bookshelf.webp" alt="">
-                                <p>カレーなる本棚&reg;リニューアル</p>
-                            </a>
-                        </li>
-                        <li>
-                            <a href="https://www.kitano-ace.jp/view/page/fukubukuro">
-                                <img src="https://gigaplus.makeshop.jp/kitanoace/07_lp-list/img/fukubukuro.webp" alt="">
-                                <p>福袋2025 予約受付中！</p>
-                            </a>
-                        </li>
-                        <li>
-                            <a href="https://www.kitano-ace.jp/view/page/currybook">
-                                <img src="https://gigaplus.makeshop.jp/kitanoace/07_lp-list/img/curry-bookshelf.webp" alt="">
-                                <p>カレーなる本棚&reg;リニューアル</p>
-                            </a>
-                        </li>
-                        <li>
-                            <a href="https://www.kitano-ace.jp/view/page/onoeukon-kyettharhinspicy">
-                                <img src="https://gigaplus.makeshop.jp/kitanoace/07_lp-list/img/ukon-original.webp" alt="">
-                                <p>【数量限定】麻辣チェッターヒン</p>
-                            </a>
-                        </li>
-                        <li>
-                            <a href="https://www.kitano-ace.jp/view/page/onoeukon">
-                                <img src="https://gigaplus.makeshop.jp/kitanoace/07_lp-list/img/ukon-osusume.webp" alt="">
-                                <p>尾上右近さんおすすめカレー11選</p>
-                            </a>
-                        </li>
-                    </ul>
-                </main>
-            </div>
-        </div>
-        <{$module.footer}>
-
-    <{$makeshop.body_bottom}>
-<{/if}>
-
-<!-- ct127の場合表示する。-->
-<{if $category.code == 'ct127'}>
-    <{$module.meta_up}>
-    <meta name="description" content=""> <!-- ページの説明文 -->
-    <!-- OGP -->
-    <meta name="description" content="<{$page.description}>">
-    <meta property="og:type" content="website">
-    <meta property="og:url" content="<{$page.canonical_url}>">
-    <meta property="og:title" content="<{$page.title}>">
-    <meta property="og:description" content="<{$page.description}>">
-    <meta property="og:site_name" content="<{$shop.name}>">
-    <meta name="twitter:card" content="summary_large_image">
-    <title><{$page.title}></title>
-    <link rel="canonical" href="<{$page.canonical_url}>">
-    <link rel="shortcut icon" type="image/ico" href="<{$shop.favicon_url}>">
-    <link href="https://use.fontawesome.com/releases/v5.6.1/css/all.css" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@100;300;400;500;700;900&display=swap" rel="stylesheet">
-    <link rel="stylesheet" type="text/css" href="//cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.css"/>
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/simplebar@5.3.6/dist/simplebar.min.css"/>
-    <link rel="stylesheet" href="<{$page.css}>">
-    <link rel="stylesheet" href="https://gigaplus.makeshop.jp/kitanoace/09_ks/assets/css/style31.css">
-    <style>
-        .header {
-            z-index: 4;
-        }
-        .header .postage p, #g-nav, .footer a, .footer p {
-            font-size: 13px;
-            letter-spacing: 0;
-        }
-        .nav-contact li {
-            font-size: 14px;
-        }
-        .nav-contact li, .gnav li a, .bnav li a, .bnav li p, .footer-nav li a, .footer-text span, .copyright {
-            letter-spacing: 0;
-        }
-        .footer-nav li {
-            line-height: 1.4;
-        }
-        .footer-nav li a {
-            font-size: 14px;
-        }
-        .sp-side-section, .search {
-            width: 77.5%;
-        }
-        .clearfix {
-            position: relative;
-            z-index: 0;
-        }
-        @media screen and (min-width: 768px) {
-            .curryBs-fv {
-                padding-top: 146.5px;
-            }
-            .curryBs_main a {
-                &:hover {
-                    opacity: 1;
-                }
-            }
-            .bottom-nav {
-                font-size: 14px;
-                letter-spacing: 0;
-            }
-        }
-        .ks-slideX-sp h3 {
-            white-space: break-spaces;
-        }
-    </style>
-    <{$module.meta_center2}>
-    <!-- GTM : スライドバナー -->
-    <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src='https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);})(window,document,'script','dataLayer','GTM-NB98GKXV');</script>
-    <!-- GTM : Clarity -->
-    <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src='https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);})(window,document,'script','dataLayer','GTM-MNFWKW8K');</script>
-    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/simplebar@5.3.6/dist/simplebar.min.js" defer></script>        
-    <script defer>
-        /* Adobe Fonts*/
-        /* Ten Mincho */
-        (function(d) { var config = {kitId: 'wku2cgo', scriptTimeout: 3000, async: true}, h=d.documentElement,t=setTimeout(function(){h.className=h.className.replace(/\bwf-loading\b/g,"")+" wf-inactive";},config.scriptTimeout),tk=d.createElement("script"),f=false,s=d.getElementsByTagName("script")[0],a;h.className+=" wf-loading";tk.src='https://use.typekit.net/'+config.kitId+'.js';tk.async=true;tk.onload=tk.onreadystatechange=function(){a=this.readyState;if(f||a&&a!="complete"&&a!="loaded")return;f=true;clearTimeout(t);try{Typekit.load(config)}catch(e){}};s.parentNode.insertBefore(tk,s)})(document);       
-        /* Yu Gothic Pr6N */
-        (function(d) { var config = { kitId: 'zqp2ktf',scriptTimeout: 3000,async: true}, h=d.documentElement,t=setTimeout(function(){h.className=h.className.replace(/\bwf-loading\b/g,"")+" wf-inactive";},config.scriptTimeout),tk=d.createElement("script"),f=false,s=d.getElementsByTagName("script")[0],a;h.className+=" wf-loading";tk.src='https://use.typekit.net/'+config.kitId+'.js';tk.async=true;tk.onload=tk.onreadystatechange=function(){a=this.readyState;if(f||a&&a!="complete"&&a!="loaded")return;f=true;clearTimeout(t);try{Typekit.load(config)}catch(e){}};s.parentNode.insertBefore(tk,s)})(document);
-    </script>
-    <script type="text/javascript" src="//cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js" defer></script>
-    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/simplebar@5.3.6/dist/simplebar.min.js" defer></script>            
-    <script src="https://gigaplus.makeshop.jp/kitanoace/09_ks/assets/js/script7.js" defer></script>    
-    <{$module.meta_down}>
-
-    <body>
-        
-        <!-- GTM : スライドバナー -->
-        <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-NB98GKXV"height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
-        <!-- GTM : Clarity -->
-        <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-MNFWKW8K"height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+    <{$makeshop.body_top}>
 
         <{$module.header}>
         <{$module.side_free}>
@@ -691,7 +40,7 @@
                 <div class="ks-fv_img-frame3"></div>
                 <div class="ks-fv_img-frame4"></div>
                 <img src="https://gigaplus.makeshop.jp/kitanoace/09_ks/assets/img/0_img1-re3.webp" alt="キタノセレクション商品がたくさん並んでいる様子" class="ks-fv_img1">
-                <img src="https://gigaplus.makeshop.jp/kitanoace/09_ks/assets/img/0_img2-re3.webp" alt="キタノセレクションご飯のおともが並んでいる様子" class="ks-fv_img2">
+                <img src="https://gigaplus.makeshop.jp/kitanoace/09_ks/assets/img/0_img2-re3.webp" alt="キタノセレクションご飯のお供が並んでいる様子" class="ks-fv_img2">
                 <img src="https://gigaplus.makeshop.jp/kitanoace/09_ks/assets/img/0_img3-re3.webp" alt="キタノセレクション杏仁豆腐の画像" class="ks-fv_img3">
             </div>
             <div class="ks-fv-con ks-sp">
@@ -710,7 +59,7 @@
                 <div class="ks-fv_img-frame3"></div>
                 <div class="ks-fv_img-frame4"></div>
                 <img src="https://gigaplus.makeshop.jp/kitanoace/09_ks/assets/img/responsive/0_img1-re5.webp" alt="キタノセレクション商品がたくさん並んでいる様子" class="ks-fv_img1">
-                <img src="https://gigaplus.makeshop.jp/kitanoace/09_ks/assets/img/responsive/0_img2-re5.webp" alt="キタノセレクションご飯のおともが並んでいる様子" class="ks-fv_img2">
+                <img src="https://gigaplus.makeshop.jp/kitanoace/09_ks/assets/img/responsive/0_img2-re5.webp" alt="キタノセレクションご飯のお供が並んでいる様子" class="ks-fv_img2">
                 <img src="https://gigaplus.makeshop.jp/kitanoace/09_ks/assets/img/responsive/0_img3-re5.webp" alt="キタノセレクション杏仁豆腐の画像" class="ks-fv_img3">
             </div>
             <div class="ks-fv-con ks-pc">
@@ -738,14 +87,14 @@
                             お客様の声を大切にした商品開発で、<br>
                             毎日の食卓に新たな驚きをお届けします。<br>
                             ドレッシングからジャム、<br>
-                            ご飯のおともまで、<br>
+                            ご飯のお供まで、<br>
                             選び放題の豊富なラインナップを<br>
                             お楽しみください。
                         </p>
                         <p class="ks-pc slideIn-left-about">
                             約700種類と幅広く展開する「キタノセレクション」は、<br>
                             お客様の声を大切にした商品開発で、毎日の食卓に新たな驚きをお届けします。<br>
-                            ドレッシングからジャム、ご飯のおともまで、<br>
+                            ドレッシングからジャム、ご飯のお供まで、<br>
                             選び放題の豊富なラインナップをお楽しみください。
                         </p>
                     </div>    
@@ -784,9 +133,7 @@
                         <h3>あご入りだし</h3>
                         <p>“国内産”にこだわった鰹節や昆布、旨味の決め手である焼あごなどの多くの素材を黄金比率で配合しました。どんな料理に使っても美味しく飽きない万能和風だしです。</p>
                         <p class="ks-pickUp-item-price">&yen;<span>1,080</span>(税込)</p>
-                        <div class="ks-pickUp-item-cta">
-                            <a href="https://www.kitano-ace.jp/view/item/000000000297">商品を詳しく見る</a>
-                        </div>
+                        <div class="ks-pickUp-item-cta"><a href="https://www.kitano-ace.jp/view/item/000000000297">商品を詳しく見る</a></div>
                     </div>
                 </article>
                 <article>
@@ -814,9 +161,7 @@
                         <h3>大人のためのにんじんドレッシング</h3>
                         <p>コクがあるのにさっぱりとした味わいで、国産にんじんのすりおろし食感を楽しめる贅沢なドレッシングです。お肉やお魚、冷奴にかけるほか、炒飯にかけても美味しく召し上がれます。</p>
                         <p class="ks-pickUp-item-price">&yen;<span>746</span>(税込)</p>
-                        <div class="ks-pickUp-item-cta">
-                            <a href="https://www.kitano-ace.jp/view/item/000000000254">商品を詳しく見る</a>
-                        </div>
+                        <div class="ks-pickUp-item-cta"><a href="https://www.kitano-ace.jp/view/item/000000000254">商品を詳しく見る</a></div>
                     </div>
                 </article>
                 <article>
@@ -844,9 +189,7 @@
                         <h3>しじみ汁</h3>
                         <p>国内産の殻付きしじみを使用し、生タイプのみそで仕上げる本格的な即席しじみ汁です。香り高い昔ながらのしじみ汁をお湯を注ぐだけでお手軽にお楽しみいただけます。</p>
                         <p class="ks-pickUp-item-price">&yen;<span>1,296</span>(税込)</p>
-                        <div class="ks-pickUp-item-cta">
-                            <a href="https://www.kitano-ace.jp/view/item/000000000298">商品を詳しく見る</a>
-                        </div>
+                        <div class="ks-pickUp-item-cta"><a href="https://www.kitano-ace.jp/view/item/000000000298">商品を詳しく見る</a></div>
                     </div>
                 </article>
             </section>
@@ -868,17 +211,26 @@
                                     <p>1</p>
                                     <img src="https://gigaplus.makeshop.jp/kitanoace/09_ks/assets/img/3_crown1.svg" alt="">
                                 </div>
-                                <div class="ks-slideX-item_img">
-                                    <img src="https://gigaplus.makeshop.jp/kitanoace/09_ks/assets/img/item1.webp" alt="あご入りだし">
-                                </div>
+                                <div class="ks-slideX-item_img"><img src="https://gigaplus.makeshop.jp/kitanoace/09_ks/assets/img/item1.webp" alt="あご入りだし"></div>
                                 <h3>あご入りだし</h3>
                                 <p>&yen; 1,080 (税込)</p>
                             </a>
                         </li>
                         <li>
-                            <a href="https://www.kitano-ace.jp/view/item/000000000254">
+                            <a href="https://www.kitano-ace.jp/view/item/000000000298">
                                 <div class="ks-ranking-icon">
                                     <p>2</p>
+                                    <img src="https://gigaplus.makeshop.jp/kitanoace/09_ks/assets/img/3_crown4.svg" alt="">
+                                </div>
+                                <div class="ks-slideX-item_img"><img src="https://gigaplus.makeshop.jp/kitanoace/09_ks/assets/img/item5.webp" alt="しじみ汁"></div>
+                                <h3>しじみ汁</h3>
+                                <p>&yen; 1,296 (税込)</p>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="https://www.kitano-ace.jp/view/item/000000000254">
+                                <div class="ks-ranking-icon">
+                                    <p>3</p>
                                     <img src="https://gigaplus.makeshop.jp/kitanoace/09_ks/assets/img/3_crown2.svg" alt="">
                                 </div>
                                 <div class="ks-slideX-item_img">
@@ -889,42 +241,26 @@
                             </a>
                         </li>
                         <li>
-                            <a href="https://www.kitano-ace.jp/view/item/000000001545">
-                                <div class="ks-ranking-icon">
-                                    <p>3</p>
-                                    <img src="https://gigaplus.makeshop.jp/kitanoace/09_ks/assets/img/3_crown3.svg" alt="">
-                                </div>
-                                <div class="ks-slideX-item_img">
-                                    <img src="https://gigaplus.makeshop.jp/kitanoace/09_ks/assets/img/item3.webp" alt="ジャスミン茶 500ml×24本">
-                                </div>
-                                <h3>ジャスミン茶 500ml&times;24本</h3>
-                                <p>&yen; 1,500 (税込)</p>
-                            </a>
-                        </li>
-                        <li>
                             <a href="https://www.kitano-ace.jp/view/item/000000000266">
                                 <div class="ks-ranking-icon">
                                     <p>4</p>
                                     <img src="https://gigaplus.makeshop.jp/kitanoace/09_ks/assets/img/3_crown4.svg" alt="">
                                 </div>
                                 <div class="ks-slideX-item_img">
-                                    <img src="https://gigaplus.makeshop.jp/kitanoace/09_ks/assets/img/item4.webp" alt="焼き塩さば">
-                                </div>
+                            <img src="https://gigaplus.makeshop.jp/kitanoace/09_ks/assets/img/item4.webp" alt="焼き塩さば"></div>
                                 <h3>焼き塩さば</h3>
                                 <p>&yen; 499 (税込)</p>
                             </a>
                         </li>
                         <li>
-                            <a href="https://www.kitano-ace.jp/view/item/000000000298">
+                            <a href="https://www.kitano-ace.jp/view/item/000000000247">
                                 <div class="ks-ranking-icon">
                                     <p>5</p>
                                     <img src="https://gigaplus.makeshop.jp/kitanoace/09_ks/assets/img/3_crown4.svg" alt="">
                                 </div>
-                                <div class="ks-slideX-item_img">
-                                    <img src="https://gigaplus.makeshop.jp/kitanoace/09_ks/assets/img/item5.webp" alt="しじみ汁">
-                                </div>
-                                <h3>しじみ汁</h3>
-                                <p>&yen; 1,296 (税込)</p>
+                                <div class="ks-slideX-item_img"><img src="https://gigaplus.makeshop.jp/kitanoace/09_ks/assets/img/item11.webp" alt="国産たけのこごはん"></div>
+                                <h3>国産たけのこごはん</h3>
+                                <p>&yen; 972 (税込)</p>
                             </a>
                         </li>
                         <li>
@@ -933,89 +269,75 @@
                                     <p>6</p>
                                     <img src="https://gigaplus.makeshop.jp/kitanoace/09_ks/assets/img/3_crown4.svg" alt="">
                                 </div>
-                                <div class="ks-slideX-item_img">
-                                    <img src="https://gigaplus.makeshop.jp/kitanoace/09_ks/assets/img/item6.webp" alt="鮭ほぐし">
-                                </div>
+                                <div class="ks-slideX-item_img"><img src="https://gigaplus.makeshop.jp/kitanoace/09_ks/assets/img/item6.webp" alt="鮭ほぐし"></div>
                                 <h3>鮭ほぐし</h3>
+                                <p>&yen; 735 (税込)</p>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="https://www.kitano-ace.jp/view/item/000000001135">
+                                <div class="ks-ranking-icon">
+                                    <p>7</p>
+                                    <img src="https://gigaplus.makeshop.jp/kitanoace/09_ks/assets/img/3_crown4.svg" alt="">
+                                </div>
+                                <div class="ks-slideX-item_img"><img src="https://gigaplus.makeshop.jp/kitanoace/09_ks/assets/img/item44.webp" alt="国産たらこと鮭ほぐし"></div>
+                                <h3>国産たらこと鮭ほぐし</h3>
                                 <p>&yen; 735 (税込)</p>
                             </a>
                         </li>
                         <li>
                             <a href="https://www.kitano-ace.jp/view/item/000000000296">
                                 <div class="ks-ranking-icon">
-                                    <p>7</p>
+                                    <p>8</p>
                                     <img src="https://gigaplus.makeshop.jp/kitanoace/09_ks/assets/img/3_crown4.svg" alt="">
                                 </div>
-                                <div class="ks-slideX-item_img">
-                                    <img src="https://gigaplus.makeshop.jp/kitanoace/09_ks/assets/img/item7.webp" alt="あご入りだし45%減塩">
-                                </div>
+                                <div class="ks-slideX-item_img"><img src="https://gigaplus.makeshop.jp/kitanoace/09_ks/assets/img/item7.webp" alt="あご入りだし45%減塩"></div>
                                 <h3>あご入りだし45%減塩</h3>
                                 <p>&yen; 1,080 (税込)</p>
                             </a>
                         </li>
                         <li>
-                            <a href="https://www.kitano-ace.jp/view/item/000000001135">
-                                <div class="ks-ranking-icon">
-                                    <p>8</p>
-                                    <img src="https://gigaplus.makeshop.jp/kitanoace/09_ks/assets/img/3_crown4.svg" alt="">
-                                </div>
-                                <div class="ks-slideX-item_img">
-                                    <img src="https://gigaplus.makeshop.jp/kitanoace/09_ks/assets/img/item8.webp" alt="国産たらこと鮭ほぐし">
-                                </div>
-                                <h3>国産たらこと鮭ほぐし</h3>
-                                <p>&yen; 735 (税込)</p>
-                            </a>
-                        </li>
-                        <li>
-                            <a href="https://www.kitano-ace.jp/view/item/000000001292?category_page_id=ct151">
+                            <a href="https://www.kitano-ace.jp/view/item/000000000245">
                                 <div class="ks-ranking-icon">
                                     <p>9</p>
                                     <img src="https://gigaplus.makeshop.jp/kitanoace/09_ks/assets/img/3_crown4.svg" alt="">
                                 </div>
-                                <div class="ks-slideX-item_img">
-                                    <img src="https://gigaplus.makeshop.jp/kitanoace/09_ks/assets/img/item9.webp" alt="国産 野菜だし 6袋">
-                                </div>
-                                <h3>国産 野菜だし 6g&times;14袋</h3>
-                                <p>&yen; 1,070 (税込)</p>
+                                <div class="ks-slideX-item_img"><img src="https://gigaplus.makeshop.jp/kitanoace/09_ks/assets/img/item12.webp" alt="国産 味付たまご"></div>
+                                <h3>国産 味付たまご</h3>
+                                <p>&yen; 756 (税込)</p>
                             </a>
                         </li>
                         <li>
-                            <a href="https://www.kitano-ace.jp/view/item/000000000258">
+                            <a href="https://www.kitano-ace.jp/view/item/000000000279">
                                 <div class="ks-ranking-icon">
                                     <p>10</p>
                                     <img src="https://gigaplus.makeshop.jp/kitanoace/09_ks/assets/img/3_crown4.svg" alt="">
                                 </div>
-                                <div class="ks-slideX-item_img">
-                                    <img src="https://gigaplus.makeshop.jp/kitanoace/09_ks/assets/img/item10.webp" alt="炭焼珈琲ゼリー">
-                                </div>
-                                <h3>炭焼珈琲ゼリー</h3>
-                                <p>&yen; 431 (税込)</p>
+                                <div class="ks-slideX-item_img"><img src="https://gigaplus.makeshop.jp/kitanoace/09_ks/assets/img/item28.webp" alt="国産 野菜だし 6袋"></div>
+                                <h3>アールグレイ</h3>
+                                <p>&yen; 854 (税込)</p>
                             </a>
                         </li>
                         <li>
-                            <a href="https://www.kitano-ace.jp/view/item/000000000247">
+                            <a href="https://www.kitano-ace.jp/view/item/000000000244">
                                 <div class="ks-ranking-icon">
                                     <p>11</p>
                                     <img src="https://gigaplus.makeshop.jp/kitanoace/09_ks/assets/img/3_crown4.svg" alt="">
                                 </div>
-                                <div class="ks-slideX-item_img">
-                                    <img src="https://gigaplus.makeshop.jp/kitanoace/09_ks/assets/img/item11.webp" alt="国産たけのこごはん">
-                                </div>
-                                <h3>国産たけのこごはん</h3>
-                                <p>&yen; 886 (税込)</p>
+                                <div class="ks-slideX-item_img"><img src="https://gigaplus.makeshop.jp/kitanoace/09_ks/assets/img/item32.webp" alt="筍ごはん"></div>
+                                <h3>筍ごはん</h3>
+                                <p>&yen; 647 (税込)</p>
                             </a>
                         </li>
                         <li>
-                            <a href="https://www.kitano-ace.jp/view/item/000000000245">
+                            <a href="https://www.kitano-ace.jp/view/item/000000000868">
                                 <div class="ks-ranking-icon">
                                     <p>12</p>
                                     <img src="https://gigaplus.makeshop.jp/kitanoace/09_ks/assets/img/3_crown4.svg" alt="">
                                 </div>
-                                <div class="ks-slideX-item_img">
-                                    <img src="https://gigaplus.makeshop.jp/kitanoace/09_ks/assets/img/item12.webp" alt="国産 味付たまご">
-                                </div>
-                                <h3>国産 味付たまご</h3>
-                                <p>&yen; 756 (税込)</p>
+                                <div class="ks-slideX-item_img"><img src="https://gigaplus.makeshop.jp/kitanoace/09_ks/assets/img/item33.webp" alt="大人のための贅沢なブルーベリージャム"></div>
+                                <h3>大人のための贅沢なブルーベリージャム</h3>
+                                <p>&yen; 746 (税込)</p>
                             </a>
                         </li>
                     </ul>    
@@ -1028,37 +350,31 @@
                                     <p>1</p>
                                     <img src="https://gigaplus.makeshop.jp/kitanoace/09_ks/assets/img/3_crown1.svg" alt="">
                                 </div>
-                                <div class="ks-slideX-item_img">
-                                    <img src="https://gigaplus.makeshop.jp/kitanoace/09_ks/assets/img/item1.webp" alt="あご入りだし">
-                                </div>
+                                <div class="ks-slideX-item_img"><img src="https://gigaplus.makeshop.jp/kitanoace/09_ks/assets/img/item1.webp" alt="あご入りだし"></div>
                                 <h3>あご入りだし</h3>
                                 <p>&yen; 1,080 (税込)</p>
                             </a>
                         </li>
                         <li>
-                            <a href="https://www.kitano-ace.jp/view/item/000000000254">
+                            <a href="https://www.kitano-ace.jp/view/item/000000000298">
                                 <div class="ks-ranking-icon">
                                     <p>2</p>
-                                    <img src="https://gigaplus.makeshop.jp/kitanoace/09_ks/assets/img/3_crown2.svg" alt="">
+                                    <img src="https://gigaplus.makeshop.jp/kitanoace/09_ks/assets/img/3_crown4.svg" alt="">
                                 </div>
-                                <div class="ks-slideX-item_img">
-                                    <img src="https://gigaplus.makeshop.jp/kitanoace/09_ks/assets/img/item2.webp" alt="大人のためのにんじんドレッシング">
-                                </div>
-                                <h3>大人のためのにんじんドレッシング</h3>
-                                <p>&yen; 746 (税込)</p>
+                                <div class="ks-slideX-item_img"><img src="https://gigaplus.makeshop.jp/kitanoace/09_ks/assets/img/item5.webp" alt="しじみ汁"></div>
+                                <h3>しじみ汁</h3>
+                                <p>&yen; 1,296 (税込)</p>
                             </a>
                         </li>
                         <li>
-                            <a href="https://www.kitano-ace.jp/view/item/000000001545">
+                            <a href="https://www.kitano-ace.jp/view/item/000000000254">
                                 <div class="ks-ranking-icon">
                                     <p>3</p>
-                                    <img src="https://gigaplus.makeshop.jp/kitanoace/09_ks/assets/img/3_crown3.svg" alt="">
+                                    <img src="https://gigaplus.makeshop.jp/kitanoace/09_ks/assets/img/3_crown2.svg" alt="">
                                 </div>
-                                <div class="ks-slideX-item_img">
-                                    <img src="https://gigaplus.makeshop.jp/kitanoace/09_ks/assets/img/item3.webp" alt="ジャスミン茶 500ml×24本">
-                                </div>
-                                <h3>ジャスミン茶 500ml&times;24本</h3>
-                                <p>&yen; 1,500 (税込)</p>
+                                <div class="ks-slideX-item_img"><img src="https://gigaplus.makeshop.jp/kitanoace/09_ks/assets/img/item2.webp" alt="大人のためのにんじんドレッシング"></div>
+                                <h3>大人のためのにんじんドレッシング</h3>
+                                <p>&yen; 746 (税込)</p>
                             </a>
                         </li>
                         <li>
@@ -1067,35 +383,28 @@
                                     <p>4</p>
                                     <img src="https://gigaplus.makeshop.jp/kitanoace/09_ks/assets/img/3_crown4.svg" alt="">
                                 </div>
-                                <div class="ks-slideX-item_img">
-                                    <img src="https://gigaplus.makeshop.jp/kitanoace/09_ks/assets/img/item4.webp" alt="焼き塩さば">
-                                </div>
+                                <div class="ks-slideX-item_img"><img src="https://gigaplus.makeshop.jp/kitanoace/09_ks/assets/img/item4.webp" alt="焼き塩さば"></div>
                                 <h3>焼き塩さば</h3>
                                 <p>&yen; 499 (税込)</p>
                             </a>
                         </li>
                         <li>
-                            <a href="https://www.kitano-ace.jp/view/item/000000000298">
+                            <a href="https://www.kitano-ace.jp/view/item/000000000247">
                                 <div class="ks-ranking-icon">
                                     <p>5</p>
                                     <img src="https://gigaplus.makeshop.jp/kitanoace/09_ks/assets/img/3_crown4.svg" alt="">
                                 </div>
-                                <div class="ks-slideX-item_img">
-                                    <img src="https://gigaplus.makeshop.jp/kitanoace/09_ks/assets/img/item5.webp" alt="しじみ汁">
-                                </div>
-                                <h3>しじみ汁</h3>
-                                <p>&yen; 1,296 (税込)</p>
+                                <div class="ks-slideX-item_img"><img src="https://gigaplus.makeshop.jp/kitanoace/09_ks/assets/img/item11.webp" alt="国産たけのこごはん"></div>
+                                <h3>国産たけのこごはん</h3>
+                                <p>&yen; 972 (税込)</p>
                             </a>
-                        </li>
                         <li>
                             <a href="https://www.kitano-ace.jp/view/item/000000001136">
                                 <div class="ks-ranking-icon">
                                     <p>6</p>
                                     <img src="https://gigaplus.makeshop.jp/kitanoace/09_ks/assets/img/3_crown4.svg" alt="">
                                 </div>
-                                <div class="ks-slideX-item_img">
-                                    <img src="https://gigaplus.makeshop.jp/kitanoace/09_ks/assets/img/item6.webp" alt="鮭ほぐし">
-                                </div>
+                                <div class="ks-slideX-item_img"><img src="https://gigaplus.makeshop.jp/kitanoace/09_ks/assets/img/item6.webp" alt="鮭ほぐし"></div>
                                 <h3>鮭ほぐし</h3>
                                 <p>&yen; 735 (税込)</p>
                             </a>
@@ -1103,82 +412,71 @@
                     </ul>    
                     <ul class="ks-slide-ul2">
                         <li>
-                            <a href="https://www.kitano-ace.jp/view/item/000000000296">
+                            <a href="https://www.kitano-ace.jp/view/item/000000001135">
                                 <div class="ks-ranking-icon">
                                     <p>7</p>
                                     <img src="https://gigaplus.makeshop.jp/kitanoace/09_ks/assets/img/3_crown4.svg" alt="">
                                 </div>
-                                <div class="ks-slideX-item_img">
-                                    <img src="https://gigaplus.makeshop.jp/kitanoace/09_ks/assets/img/item7.webp" alt="あご入りだし45%減塩">
-                                </div>
-                                <h3>あご入りだし45%減塩</h3>
-                                <p>&yen; 1,080 (税込)</p>
-                            </a>
-                        </li>
-                        <li>
-                            <a href="https://www.kitano-ace.jp/view/item/000000001135">
-                                <div class="ks-ranking-icon">
-                                    <p>8</p>
-                                    <img src="https://gigaplus.makeshop.jp/kitanoace/09_ks/assets/img/3_crown4.svg" alt="">
-                                </div>
-                                <div class="ks-slideX-item_img">
-                                    <img src="https://gigaplus.makeshop.jp/kitanoace/09_ks/assets/img/item8.webp" alt="国産たらこと鮭ほぐし">
-                                </div>
+                                <div class="ks-slideX-item_img"><img src="https://gigaplus.makeshop.jp/kitanoace/09_ks/assets/img/item44.webp" alt="国産たらこと鮭ほぐし"></div>
                                 <h3>国産たらこと鮭ほぐし</h3>
                                 <p>&yen; 735 (税込)</p>
                             </a>
                         </li>
                         <li>
-                            <a href="https://www.kitano-ace.jp/view/item/000000001292?category_page_id=ct151">
+                            <a href="https://www.kitano-ace.jp/view/item/000000000296">
                                 <div class="ks-ranking-icon">
-                                    <p>9</p>
+                                    <p>8</p>
                                     <img src="https://gigaplus.makeshop.jp/kitanoace/09_ks/assets/img/3_crown4.svg" alt="">
                                 </div>
-                                <div class="ks-slideX-item_img">
-                                    <img src="https://gigaplus.makeshop.jp/kitanoace/09_ks/assets/img/item9.webp" alt="国産 野菜だし 6袋">
-                                </div>
-                                <h3>国産 野菜だし 6g&times;14袋</h3>
-                                <p>&yen; 1,070 (税込)</p>
-                            </a>
-                        </li>
-                        <li>
-                            <a href="https://www.kitano-ace.jp/view/item/000000000258">
-                                <div class="ks-ranking-icon">
-                                    <p>10</p>
-                                    <img src="https://gigaplus.makeshop.jp/kitanoace/09_ks/assets/img/3_crown4.svg" alt="">
-                                </div>
-                                <div class="ks-slideX-item_img">
-                                    <img src="https://gigaplus.makeshop.jp/kitanoace/09_ks/assets/img/item10.webp" alt="炭焼珈琲ゼリー">
-                                </div>
-                                <h3>炭焼珈琲ゼリー</h3>
-                                <p>&yen; 431 (税込)</p>
-                            </a>
-                        </li>
-                        <li>
-                            <a href="https://www.kitano-ace.jp/view/item/000000000247">
-                                <div class="ks-ranking-icon">
-                                    <p>11</p>
-                                    <img src="https://gigaplus.makeshop.jp/kitanoace/09_ks/assets/img/3_crown4.svg" alt="">
-                                </div>
-                                <div class="ks-slideX-item_img">
-                                    <img src="https://gigaplus.makeshop.jp/kitanoace/09_ks/assets/img/item11.webp" alt="国産たけのこごはん">
-                                </div>
-                                <h3>国産たけのこごはん</h3>
-                                <p>&yen; 886 (税込)</p>
+                                <div class="ks-slideX-item_img"><img src="https://gigaplus.makeshop.jp/kitanoace/09_ks/assets/img/item7.webp" alt="あご入りだし45%減塩"></div>
+                                <h3>あご入りだし45%減塩</h3>
+                                <p>&yen; 1,080 (税込)</p>
                             </a>
                         </li>
                         <li>
                             <a href="https://www.kitano-ace.jp/view/item/000000000245">
                                 <div class="ks-ranking-icon">
-                                    <p>12</p>
+                                    <p>9</p>
                                     <img src="https://gigaplus.makeshop.jp/kitanoace/09_ks/assets/img/3_crown4.svg" alt="">
                                 </div>
-                                <div class="ks-slideX-item_img">
-                                    <img src="https://gigaplus.makeshop.jp/kitanoace/09_ks/assets/img/item12.webp" alt="国産 味付たまご">
-                                </div>
+                                <div class="ks-slideX-item_img"><img src="https://gigaplus.makeshop.jp/kitanoace/09_ks/assets/img/item12.webp" alt="国産 味付たまご"></div>
                                 <h3>国産 味付たまご</h3>
                                 <p>&yen; 756 (税込)</p>
                             </a>
+                        </li>
+                        <li>
+                            <a href="https://www.kitano-ace.jp/view/item/000000000279">
+                                <div class="ks-ranking-icon">
+                                    <p>10</p>
+                                    <img src="https://gigaplus.makeshop.jp/kitanoace/09_ks/assets/img/3_crown4.svg" alt="">
+                                </div>
+                                <div class="ks-slideX-item_img"><img src="https://gigaplus.makeshop.jp/kitanoace/09_ks/assets/img/item28.webp" alt="国産 野菜だし 6袋"></div>
+                                <h3>アールグレイ</h3>
+                                <p>&yen; 854 (税込)</p>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="https://www.kitano-ace.jp/view/item/000000000244">
+                                <div class="ks-ranking-icon">
+                                    <p>11</p>
+                                    <img src="https://gigaplus.makeshop.jp/kitanoace/09_ks/assets/img/3_crown4.svg" alt="">
+                                </div>
+                                <div class="ks-slideX-item_img"><img src="https://gigaplus.makeshop.jp/kitanoace/09_ks/assets/img/item32.webp" alt="国産 野菜だし 6袋"></div>
+                                <h3>筍ごはん</h3>
+                                <p>&yen; 647 (税込)</p>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="https://www.kitano-ace.jp/view/item/000000000868">
+                                <div class="ks-ranking-icon">
+                                    <p>12</p>
+                                    <img src="https://gigaplus.makeshop.jp/kitanoace/09_ks/assets/img/3_crown4.svg" alt="">
+                                </div>
+                                <div class="ks-slideX-item_img"><img src="https://gigaplus.makeshop.jp/kitanoace/09_ks/assets/img/item33.webp" alt="炭焼珈琲ゼリー"></div>
+                                <h3>大人のための贅沢なブルーベリージャム</h3>
+                                <p>&yen; 746 (税込)</p>
+                            </a>
+                        </li>
                         </li>
                     </ul>
                 </div>
@@ -1196,111 +494,87 @@
                 <div class="ks-slideX-sp ks-sp slideIn-left-ranking" data-simplebar data-simplebar-auto-hide="false">
                     <ul>
                         <li>
-                            <a href="https://www.kitano-ace.jp/view/item/000000001508">
-                                <div class="ks-slideX-item_img">
-                                    <img src="https://gigaplus.makeshop.jp/kitanoace/09_ks/assets/img/item13.webp" alt="舞茸ごはん">
-                                </div>
-                                <h3>舞茸ごはん</h3>
-                                <p>&yen; 648 (税込)</p>
-                            </a>
-                        </li>
-                        <li>
-                            <a href="https://www.kitano-ace.jp/view/item/000000001470">
-                                <div class="ks-slideX-item_img">
-                                    <img src="https://gigaplus.makeshop.jp/kitanoace/09_ks/assets/img/item14.webp" alt="卵一つで料亭のだし香る 親子丼の素">
-                                </div>
-                                <h3>卵一つで料亭のだし香る 親子丼の素</h3>
-                                <p>&yen; 465 (税込)</p>
-                            </a>
-                        </li>
-                        <li>
-                            <a href="https://www.kitano-ace.jp/view/item/000000000548">
-                                <div class="ks-slideX-item_img">
-                                    <img src="https://gigaplus.makeshop.jp/kitanoace/09_ks/assets/img/item15.webp" alt="国産 きのこのごはんの素">
-                                </div>
-                                <h3>国産 きのこのごはんの素</h3>
-                                <p>&yen; 584 (税込)</p>
-                            </a>
-                        </li>
-                        <li>
-                            <a href="https://www.kitano-ace.jp/view/item/000000001545">
-                                <div class="ks-slideX-item_img">
-                                    <img src="https://gigaplus.makeshop.jp/kitanoace/09_ks/assets/img/item16.webp" alt="ジャスミン茶 500ml&:times24本">
-                                </div>
-                                <h3>ジャスミン茶 500ml&times;24本</h3>
-                                <p>&yen; 1,500 (税込)</p>
-                            </a>
-                        </li>
-                        <li>
-                            <a href="https://www.kitano-ace.jp/view/item/000000000296">
-                                <div class="ks-slideX-item_img">
-                                    <img src="https://gigaplus.makeshop.jp/kitanoace/09_ks/assets/img/item7.webp" alt="あご入りだし45%減塩">
-                                </div>
-                                <h3>あご入りだし45%減塩</h3>
-                                <p>&yen; 1,080 (税込)</p>
-                            </a>
-                        </li>
-                        <li>
-                            <a href="https://www.kitano-ace.jp/view/item/000000000263">
-                                <div class="ks-slideX-item_img">
-                                    <img src="https://gigaplus.makeshop.jp/kitanoace/09_ks/assets/img/item25.webp" alt="とん汁">
-                                </div>
-                                <h3>とん汁</h3>
-                                <p>&yen; 1,070 (税込)</p>
-                            </a>
-                        </li>
-                        <li>
-                            <a href="https://www.kitano-ace.jp/view/item/000000000892">
-                                <div class="ks-slideX-item_img">
-                                    <img src="https://gigaplus.makeshop.jp/kitanoace/09_ks/assets/img/item26.webp" alt="大人のためのりんごジャム">
-                                </div>
-                                <h3>大人のためのりんごジャム</h3>
-                                <p>&yen; 519 (税込)</p>
-                            </a>
-                        </li>
-                        <li>
-                            <a href="https://www.kitano-ace.jp/view/item/000000000291">
-                                <div class="ks-slideX-item_img">
-                                    <img src="https://gigaplus.makeshop.jp/kitanoace/09_ks/assets/img/item23.webp" alt="ごま高菜漬け">
-                                </div>
-                                <h3>ごま高菜漬け</h3>
-                                <p>&yen; 324 (税込)</p>
-                            </a>
-                        </li>
-                        <li>
-                            <a href="https://www.kitano-ace.jp/view/item/000000001090">
-                                <div class="ks-slideX-item_img">
-                                    <img src="https://gigaplus.makeshop.jp/kitanoace/09_ks/assets/img/item21.webp" alt="2層仕立て 北野珈琲ゼリー">
-                                </div>
-                                <h3>2層仕立て 北野珈琲ゼリー</h3>
-                                <p>&yen; 270 (税込)</p>
+                            <a href="https://www.kitano-ace.jp/view/item/000000000618">
+                                <div class="ks-slideX-item_img"><img src="https://gigaplus.makeshop.jp/kitanoace/09_ks/assets/img/item34.webp" alt="大人のための贅沢なノンオイルドレッシング 和風たまねぎ Premium"></div>
+                                <h3>大人のための贅沢なノンオイルドレッシング 和風たまねぎ Premium</h3>
+                                <p>&yen; 638 (税込)</p>
                             </a>
                         </li>
                         <li>
                             <a href="https://www.kitano-ace.jp/view/item/000000001296">
-                                <div class="ks-slideX-item_img">
-                                    <img src="https://gigaplus.makeshop.jp/kitanoace/09_ks/assets/img/item22.webp" alt="さばみそラー油">
-                                </div>
+                                <div class="ks-slideX-item_img"><img src="https://gigaplus.makeshop.jp/kitanoace/09_ks/assets/img/item22.webp" alt="さばみそラー油"></div>
                                 <h3>さばみそラー油</h3>
                                 <p>&yen; 539 (税込)</p>
                             </a>
                         </li>
                         <li>
-                            <a href="https://www.kitano-ace.jp/view/item/000000000294">
-                                <div class="ks-slideX-item_img">
-                                    <img src="https://gigaplus.makeshop.jp/kitanoace/09_ks/assets/img/item27.webp" alt="からし明太子高菜">
-                                </div>
-                                <h3>からし明太子高菜</h3>
+                            <a href="https://www.kitano-ace.jp/view/item/000000000246">
+                                <div class="ks-slideX-item_img"><img src="https://gigaplus.makeshop.jp/kitanoace/09_ks/assets/img/item35.webp" alt="無選別えびせん揚げ"></div>
+                                <h3>無選別えびせん揚げ</h3>
+                                <p>&yen; 464 (税込)</p>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="https://www.kitano-ace.jp/view/item/000000001229">
+                                <div class="ks-slideX-item_img"><img src="https://gigaplus.makeshop.jp/kitanoace/09_ks/assets/img/item36.webp" alt="キタノスパイス"></div>
+                                <h3>キタノスパイス</h3>
+                                <p>&yen; 701 (税込)</p>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="https://www.kitano-ace.jp/view/item/000000001611">
+                                <div class="ks-slideX-item_img"><img src="https://gigaplus.makeshop.jp/kitanoace/09_ks/assets/img/item37.webp" alt="梅こんぶなめ茸"></div>
+                                <h3>梅こんぶなめ茸</h3>
                                 <p>&yen; 399 (税込)</p>
                             </a>
                         </li>
                         <li>
-                            <a href="https://www.kitano-ace.jp/view/item/000000000266">
-                                <div class="ks-slideX-item_img">
-                                    <img src="https://gigaplus.makeshop.jp/kitanoace/09_ks/assets/img/item24.webp" alt="焼き塩さば">
-                                </div>
-                                <h3>焼き塩さば</h3>
+                            <a href="https://www.kitano-ace.jp/view/item/000000000290">
+                                <div class="ks-slideX-item_img"><img src="https://gigaplus.makeshop.jp/kitanoace/09_ks/assets/img/item38.webp" alt="パンケーキミックス"></div>
+                                <h3>パンケーキミックス</h3>
+                                <p>&yen; 562 (税込)</p>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="https://www.kitano-ace.jp/view/item/000000000278">
+                                <div class="ks-slideX-item_img"><img src="https://gigaplus.makeshop.jp/kitanoace/09_ks/assets/img/item39.webp" alt="スモークオイルサーディン"></div>
+                                <h3>スモークオイルサーディン</h3>
+                                <p>&yen; 648 (税込)</p>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="https://www.kitano-ace.jp/view/item/000000001163">
+                                <div class="ks-slideX-item_img"><img src="https://gigaplus.makeshop.jp/kitanoace/09_ks/assets/img/item40.webp" alt="北野珈琲 大吟醸珈琲 粉"></div>
+                                <h3>北野珈琲 大吟醸珈琲 粉</h3>
+                                <p>&yen; 972 (税込)</p>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="https://www.kitano-ace.jp/view/item/000000000362">
+                                <div class="ks-slideX-item_img"><img src="https://gigaplus.makeshop.jp/kitanoace/09_ks/assets/img/item41.webp" alt="鮭皮チップス"></div>
+                                <h3>鮭皮チップス</h3>
                                 <p>&yen; 499 (税込)</p>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="https://www.kitano-ace.jp/view/item/000000000869">
+                                <div class="ks-slideX-item_img"><img src="https://gigaplus.makeshop.jp/kitanoace/09_ks/assets/img/item42.webp" alt="大人のための贅沢ないちごジャム"></div>
+                                <h3>大人のための贅沢ないちごジャム</h3>
+                                <p>&yen; 746 (税込)</p>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="https://www.kitano-ace.jp/view/item/000000000258">
+                                <div class="ks-slideX-item_img"><img src="https://gigaplus.makeshop.jp/kitanoace/09_ks/assets/img/item10.webp" alt="炭焼珈琲ゼリー"></div>
+                                <h3>炭焼珈琲ゼリー</h3>
+                                <p>&yen; 431 (税込)</p>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="https://www.kitano-ace.jp/view/item/000000000292">
+                                <div class="ks-slideX-item_img"><img src="https://gigaplus.makeshop.jp/kitanoace/09_ks/assets/img/item43.webp" alt="大人のためのビーフカレー"></div>
+                                <h3>大人のためのビーフカレー</h3>
+                                <p>&yen; 431 (税込)</p>
                             </a>
                         </li>
                     </ul>    
@@ -1308,113 +582,89 @@
                 <div class="ks-slideX-pc slideIn-left-ranking ks-pc">
                     <ul class="ks-slide-ul1 ks-slide-ul-on1">
                         <li>
-                            <a href="https://www.kitano-ace.jp/view/item/000000001508">
-                                <div class="ks-slideX-item_img">
-                                    <img src="https://gigaplus.makeshop.jp/kitanoace/09_ks/assets/img/item13.webp" alt="舞茸ごはん">
-                                </div>
-                                <h3>舞茸ごはん</h3>
-                                <p>&yen; 648 (税込)</p>
-                            </a>
-                        </li>
-                        <li>
-                            <a href="https://www.kitano-ace.jp/view/item/000000001470">
-                                <div class="ks-slideX-item_img">
-                                    <img src="https://gigaplus.makeshop.jp/kitanoace/09_ks/assets/img/item14.webp" alt="卵一つで料亭のだし香る 親子丼の素">
-                                </div>
-                                <h3>卵一つで料亭のだし香る 親子丼の素</h3>
-                                <p>&yen; 465 (税込)</p>
-                            </a>
-                        </li>
-                        <li>
-                            <a href="https://www.kitano-ace.jp/view/item/000000000548">
-                                <div class="ks-slideX-item_img">
-                                    <img src="https://gigaplus.makeshop.jp/kitanoace/09_ks/assets/img/item15.webp" alt="国産 きのこのごはんの素">
-                                </div>
-                                <h3>国産 きのこのごはんの素</h3>
-                                <p>&yen; 584 (税込)</p>
-                            </a>
-                        </li>
-                        <li>
-                            <a href="https://www.kitano-ace.jp/view/item/000000001545">
-                                <div class="ks-slideX-item_img">
-                                    <img src="https://gigaplus.makeshop.jp/kitanoace/09_ks/assets/img/item16.webp" alt="ジャスミン茶 500ml&:times24本">
-                                </div>
-                                <h3>ジャスミン茶 500ml&times;24本</h3>
-                                <p>&yen; 1,500 (税込)</p>
-                            </a>
-                        </li>
-                        <li>
-                            <a href="https://www.kitano-ace.jp/view/item/000000000296">
-                                <div class="ks-slideX-item_img">
-                                    <img src="https://gigaplus.makeshop.jp/kitanoace/09_ks/assets/img/item7.webp" alt="あご入りだし45%減塩">
-                                </div>
-                                <h3>あご入りだし45%減塩</h3>
-                                <p>&yen; 1,080 (税込)</p>
-                            </a>
-                        </li>
-                        <li>
-                            <a href="https://www.kitano-ace.jp/view/item/000000000263">
-                                <div class="ks-slideX-item_img">
-                                    <img src="https://gigaplus.makeshop.jp/kitanoace/09_ks/assets/img/item25.webp" alt="とん汁">
-                                </div>
-                                <h3>とん汁</h3>
-                                <p>&yen; 1,070 (税込)</p>
-                            </a>
-                        </li>
-                    </ul> 
-                    <ul class="ks-slide-ul2">
-                        <li>
-                            <a href="https://www.kitano-ace.jp/view/item/000000000892">
-                                <div class="ks-slideX-item_img">
-                                    <img src="https://gigaplus.makeshop.jp/kitanoace/09_ks/assets/img/item26.webp" alt="大人のためのりんごジャム">
-                                </div>
-                                <h3>大人のためのりんごジャム</h3>
-                                <p>&yen; 519 (税込)</p>
-                            </a>
-                        </li>
-                        <li>
-                            <a href="https://www.kitano-ace.jp/view/item/000000000291">
-                                <div class="ks-slideX-item_img">
-                                    <img src="https://gigaplus.makeshop.jp/kitanoace/09_ks/assets/img/item23.webp" alt="ごま高菜漬け">
-                                </div>
-                                <h3>ごま高菜漬け</h3>
-                                <p>&yen; 324 (税込)</p>
-                            </a>
-                        </li>
-                        <li>
-                            <a href="https://www.kitano-ace.jp/view/item/000000001090">
-                                <div class="ks-slideX-item_img">
-                                    <img src="https://gigaplus.makeshop.jp/kitanoace/09_ks/assets/img/item21.webp" alt="2層仕立て 北野珈琲ゼリー">
-                                </div>
-                                <h3>2層仕立て 北野珈琲ゼリー</h3>
-                                <p>&yen; 270 (税込)</p>
+                            <a href="https://www.kitano-ace.jp/view/item/000000000618">
+                                <div class="ks-slideX-item_img"><img src="https://gigaplus.makeshop.jp/kitanoace/09_ks/assets/img/item34.webp" alt="大人のための贅沢なノンオイルドレッシング 和風たまねぎ Premium"></div>
+                                <h3>大人のための贅沢なノンオイルドレッシング 和風たまねぎ Premium</h3>
+                                <p>&yen; 638 (税込)</p>
                             </a>
                         </li>
                         <li>
                             <a href="https://www.kitano-ace.jp/view/item/000000001296">
-                                <div class="ks-slideX-item_img">
-                                    <img src="https://gigaplus.makeshop.jp/kitanoace/09_ks/assets/img/item22.webp" alt="さばみそラー油">
-                                </div>
+                                <div class="ks-slideX-item_img"><img src="https://gigaplus.makeshop.jp/kitanoace/09_ks/assets/img/item22.webp" alt="さばみそラー油"></div>
                                 <h3>さばみそラー油</h3>
                                 <p>&yen; 539 (税込)</p>
                             </a>
                         </li>
                         <li>
-                            <a href="https://www.kitano-ace.jp/view/item/000000000294">
-                                <div class="ks-slideX-item_img">
-                                    <img src="https://gigaplus.makeshop.jp/kitanoace/09_ks/assets/img/item27.webp" alt="からし明太子高菜">
-                                </div>
-                                <h3>からし明太子高菜</h3>
+                            <a href="https://www.kitano-ace.jp/view/item/000000000246">
+                                <div class="ks-slideX-item_img"><img src="https://gigaplus.makeshop.jp/kitanoace/09_ks/assets/img/item35.webp" alt="無選別えびせん揚げ"></div>
+                                <h3>無選別えびせん揚げ</h3>
+                                <p>&yen; 464 (税込)</p>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="https://www.kitano-ace.jp/view/item/000000001229">
+                                <div class="ks-slideX-item_img"><img src="https://gigaplus.makeshop.jp/kitanoace/09_ks/assets/img/item36.webp" alt="キタノスパイス"></div>
+                                <h3>キタノスパイス</h3>
+                                <p>&yen; 701 (税込)</p>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="https://www.kitano-ace.jp/view/item/000000001611">
+                                <div class="ks-slideX-item_img"><img src="https://gigaplus.makeshop.jp/kitanoace/09_ks/assets/img/item37.webp" alt="梅こんぶなめ茸"></div>
+                                <h3>梅こんぶなめ茸</h3>
                                 <p>&yen; 399 (税込)</p>
                             </a>
                         </li>
                         <li>
-                            <a href="https://www.kitano-ace.jp/view/item/000000000266">
-                                <div class="ks-slideX-item_img">
-                                    <img src="https://gigaplus.makeshop.jp/kitanoace/09_ks/assets/img/item24.webp" alt="焼き塩さば">
-                                </div>
-                                <h3>焼き塩さば</h3>
+                            <a href="https://www.kitano-ace.jp/view/item/000000000290">
+                                <div class="ks-slideX-item_img"><img src="https://gigaplus.makeshop.jp/kitanoace/09_ks/assets/img/item38.webp" alt="パンケーキミックス"></div>
+                                <h3>パンケーキミックス</h3>
+                                <p>&yen; 562 (税込)</p>
+                            </a>
+                        </li>
+                    </ul> 
+                    <ul class="ks-slide-ul2">
+                        <li>
+                            <a href="https://www.kitano-ace.jp/view/item/000000000278">
+                                <div class="ks-slideX-item_img"><img src="https://gigaplus.makeshop.jp/kitanoace/09_ks/assets/img/item39.webp" alt="スモークオイルサーディン"></div>
+                                <h3>スモークオイルサーディン</h3>
+                                <p>&yen; 648 (税込)</p>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="https://www.kitano-ace.jp/view/item/000000001163">
+                                <div class="ks-slideX-item_img"><img src="https://gigaplus.makeshop.jp/kitanoace/09_ks/assets/img/item40.webp" alt="北野珈琲 大吟醸珈琲 粉"></div>
+                                <h3>北野珈琲 大吟醸珈琲 粉</h3>
+                                <p>&yen; 972 (税込)</p>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="https://www.kitano-ace.jp/view/item/000000000362">
+                                <div class="ks-slideX-item_img"><img src="https://gigaplus.makeshop.jp/kitanoace/09_ks/assets/img/item41.webp" alt="鮭皮チップス"></div>
+                                <h3>鮭皮チップス</h3>
                                 <p>&yen; 499 (税込)</p>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="https://www.kitano-ace.jp/view/item/000000000869">
+                                <div class="ks-slideX-item_img"><img src="https://gigaplus.makeshop.jp/kitanoace/09_ks/assets/img/item42.webp" alt="大人のための贅沢ないちごジャム"></div>
+                                <h3>大人のための贅沢ないちごジャム</h3>
+                                <p>&yen; 746 (税込)</p>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="https://www.kitano-ace.jp/view/item/000000000258">
+                                <div class="ks-slideX-item_img"><img src="https://gigaplus.makeshop.jp/kitanoace/09_ks/assets/img/item10.webp" alt="炭焼珈琲ゼリー"></div>
+                                <h3>炭焼珈琲ゼリー</h3>
+                                <p>&yen; 431 (税込)</p>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="https://www.kitano-ace.jp/view/item/000000000292">
+                                <div class="ks-slideX-item_img"><img src="https://gigaplus.makeshop.jp/kitanoace/09_ks/assets/img/item43.webp" alt="大人のためのビーフカレー"></div>
+                                <h3>大人のためのビーフカレー</h3>
+                                <p>&yen; 431 (税込)</p>
                             </a>
                         </li>
                     </ul>   
@@ -1432,55 +682,53 @@
                     </dl>
                 </div>
                 <{if $category.item.has_item}>
-                <ul class="item-list">
-                <{section name=i loop=$category.item.list}>
-                    <li>
-                        <div class="item-icon">
-                            <{if $category.item.list[i].is_soldout}>
-                                <p class="item-soldout">SOLD OUT</p>
-                            <{/if}>
-                        </div>
-                        <div class="item-list-image">
-                            <a href="<{$category.item.list[i].url}>"><img src="<{$category.item.list[i].image_L}>" alt=""></a>
-                        </div>
-                        <p class="item-name"><a href="<{$category.item.list[i].url}>"><{$category.item.list[i].name}></a></p>
-                        <{if $category.item.list[i].is_sale}>
-                            <p class="price original-price">￥<{$category.item.list[i].original_price|number_format}><span>（税込）</span></p>
-                            <p class="price item-sale-price">￥<{$category.item.list[i].price|number_format}><span class="tax">（税込）</span>
-                            <span class="sale-discount-rate">[<{$category.item.list[i].sale_rate}>%OFF</span>]</p>
-                        <{else}>
-                            <p class="price">￥<{$category.item.list[i].price|number_format}><span>（税込）</span></p>
-                        <{/if}>
-                        <{if $category.item.list[i].has_review}>
-                        <div class="item-list-review">
-                            <{$category.item.list[i].review.star_html}>
-                            <p class="item-list-review-rate"><{$category.item.list[i].review.average}></p>
-                            <p class="item-list-review-count">[<{$category.item.list[i].review.total_count}>件]</p>
-                        </div>
-                        <{/if}>
-                    </li>
-                <{/section}>
-                </ul>
-                <div class="pager-wrap">
-                    <p class="total-count">（全<span><{$category.total_count}></span>件）<{$category.display_count}>件表示</p>
-                    <{if $category.pager.has_item}>
-                    <ul class="pager">
-                        <{if !$category.pager.is_first_display}>
-                            <li><a href="<{$category.pager.first_url}>"><span class="prev">一番前へ</span></a></li>
-                        <{/if}>
-                        <{section name=i loop=$category.pager.list}>
-                        <{if $category.pager.list[i].is_current_page}>
-                            <li><span class="current"><{$category.pager.list[i].number}></span></li>
-                        <{else}>
-                            <li><a href="<{$category.pager.list[i].url}>"><span><{$category.pager.list[i].number}></span></a></li>
-                        <{/if}>
+                    <ul class="item-list">
+                        <{section name=i loop=$category.item.list}>
+                            <li>
+                                <div class="item-icon">
+                                    <{if $category.item.list[i].is_soldout}>
+                                        <p class="item-soldout">SOLD OUT</p>
+                                    <{/if}>
+                                </div>
+                                <div class="item-list-image"><a href="<{$category.item.list[i].url}>"><img src="<{$category.item.list[i].image_L}>" alt=""></a></div>
+                                <p class="item-name"><a href="<{$category.item.list[i].url}>"><{$category.item.list[i].name}></a></p>
+                                <{if $category.item.list[i].is_sale}>
+                                    <p class="price original-price">￥<{$category.item.list[i].original_price|number_format}><span>（税込）</span></p>
+                                    <p class="price item-sale-price">￥<{$category.item.list[i].price|number_format}><span class="tax">（税込）</span>
+                                    <span class="sale-discount-rate">[<{$category.item.list[i].sale_rate}>%OFF</span>]</p>
+                                <{else}>
+                                    <p class="price">￥<{$category.item.list[i].price|number_format}><span>（税込）</span></p>
+                                <{/if}>
+                                <{if $category.item.list[i].has_review}>
+                                    <div class="item-list-review">
+                                        <{$category.item.list[i].review.star_html}>
+                                        <p class="item-list-review-rate"><{$category.item.list[i].review.average}></p>
+                                        <p class="item-list-review-count">[<{$category.item.list[i].review.total_count}>件]</p>
+                                    </div>
+                                <{/if}>
+                            </li>
                         <{/section}>
-                        <{if !$category.pager.is_last_display}>
-                            <li><a href="<{$category.pager.last_url}>"><span class="next">最後へ</span></a></li>
-                        <{/if}>
                     </ul>
-                    <{/if}>
-                </div>
+                    <div class="pager-wrap">
+                        <p class="total-count">（全<span><{$category.total_count}></span>件）<{$category.display_count}>件表示</p>
+                        <{if $category.pager.has_item}>
+                            <ul class="pager">
+                                <{if !$category.pager.is_first_display}>
+                                    <li><a href="<{$category.pager.first_url}>"><span class="prev">一番前へ</span></a></li>
+                                <{/if}>
+                                <{section name=i loop=$category.pager.list}>
+                                <{if $category.pager.list[i].is_current_page}>
+                                    <li><span class="current"><{$category.pager.list[i].number}></span></li>
+                                <{else}>
+                                    <li><a href="<{$category.pager.list[i].url}>"><span><{$category.pager.list[i].number}></span></a></li>
+                                <{/if}>
+                                <{/section}>
+                                <{if !$category.pager.is_last_display}>
+                                    <li><a href="<{$category.pager.last_url}>"><span class="next">最後へ</span></a></li>
+                                <{/if}>
+                            </ul>
+                        <{/if}>
+                    </div>
                 <{else}>
                     <p class="empty">このカテゴリーには商品がありません</p>
                 <{/if}>
